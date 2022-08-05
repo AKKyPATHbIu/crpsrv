@@ -45,7 +45,7 @@ public class Quote {
     @ToString.Include
     @EqualsAndHashCode.Include
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "crypto")
+    @JoinColumn(name = "crypto_id")
     private Crypto crypto;
 
     @Column

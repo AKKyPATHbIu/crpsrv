@@ -10,6 +10,6 @@ create table quote
 (
     id                 uuid primary key default gen_random_uuid(),
     "timestamp"        date not null,
-    crypto             uuid references crypto,
+    crypto_id          uuid references crypto,
     price              numeric(14,2)
 );

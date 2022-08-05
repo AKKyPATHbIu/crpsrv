@@ -5,3 +5,5 @@ databaseChangeLog:
       file: db/changelog/ddl-alter-quote-timestamp.sql
   - include:
       file: db/changelog/ddl-crypto-add-unique-index.sql
+  - include:
+      file: db/changelog/ddl-quote-add-index.sql
