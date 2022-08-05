@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: db/changelog/ddl-init.sql
+  - include:
+      file: db/changelog/ddl-alter-quote-timestamp.sql
