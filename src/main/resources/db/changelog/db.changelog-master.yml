@@ -7,3 +7,5 @@ databaseChangeLog:
       file: db/changelog/ddl-crypto-add-unique-index.sql
   - include:
       file: db/changelog/ddl-quote-add-index.sql
+  - include:
+      file: db/changelog/ddl-quote-unique-index-by-timestamp-and-crypto.sql
