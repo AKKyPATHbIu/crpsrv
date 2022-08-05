@@ -1,19 +1,14 @@
 package com.epam.crpsrv.config;
 
 import com.zaxxer.hikari.HikariDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 public class DataSourceConfig {
 
     public static final String DATA_SOURCE = "dataSource";
-    public static final String TX_MANAGER = "txManager";
 
     @Value("${spring.datasource.url}")
     private String URL;
@@ -30,12 +25,6 @@ public class DataSourceConfig {
     @Bean(destroyMethod = "close", name = DATA_SOURCE)
     public HikariDataSource dataSource() {
         return createDataSource();
-    }
-
-    @Bean(name = TX_MANAGER)
-    public PlatformTransactionManager transactionManager(
-            @Autowired @Qualifier(DATA_SOURCE) HikariDataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
     }
 
     private HikariDataSource createDataSource() {

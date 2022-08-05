@@ -3,7 +3,7 @@
 
 create table crypto (
   id       uuid primary key default gen_random_uuid(),
-  symbol   varchar(3)
+  symbol   varchar(10)
 );
 
 create table quote
