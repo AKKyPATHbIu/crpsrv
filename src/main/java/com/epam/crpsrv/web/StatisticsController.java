@@ -1,5 +1,6 @@
 package com.epam.crpsrv.web;
 
+import com.epam.crpsrv.model.NormalizedPriceDto;
 import com.epam.crpsrv.model.OldestNewestMinMaxDto;
 import com.epam.crpsrv.service.StatisticService;
 import java.util.List;
@@ -21,10 +22,15 @@ public class StatisticsController {
     StatisticService statisticService;
 
     @GetMapping(value = "oldest-newest-min-max", produces = {"application/json"})
-    public List<OldestNewestMinMaxDto> oldestNewestMinMax(
+    public List<OldestNewestMinMaxDto> calcOldestNewestMinMax(
             @RequestParam @Min(1) @Max(12) int month,
             @RequestParam @Min(2022) int year) {
 
-        return statisticService.oldestNewestMinMax(month, year);
+        return statisticService.calcOldestNewestMinMax(month, year);
+    }
+
+    @GetMapping(value = "normalized-price", produces = {"application/json"})
+    public List<NormalizedPriceDto> calcNormalizedPrice() {
+        return statisticService.calcNormalizedPrice();
     }
 }

@@ -3,6 +3,7 @@ package com.epam.crpsrv.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 
+import com.epam.crpsrv.model.NormalizedPriceDto;
 import com.epam.crpsrv.model.OldestNewestMinMaxDto;
 import com.epam.crpsrv.repository.QuoteRepository;
 import java.math.BigDecimal;
@@ -36,9 +37,9 @@ class StatisticServiceImplTest {
 
         var expectedResult = List.of(expectedDto);
 
-        doReturn(expectedResult).when(quoteRepository).oldestNewestMinMax(dateFrom, dateTo);
+        doReturn(expectedResult).when(quoteRepository).calcOldestNewestMinMax(dateFrom, dateTo);
 
-        var actualResult = statisticService.oldestNewestMinMax(dateFrom, dateTo);
+        var actualResult = statisticService.calcOldestNewestMinMax(dateFrom, dateTo);
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }
@@ -59,9 +60,29 @@ class StatisticServiceImplTest {
 
         var expectedResult = List.of(expectedDto);
 
-        doReturn(expectedResult).when(quoteRepository).oldestNewestMinMax(dateFrom, dateTo);
+        doReturn(expectedResult).when(quoteRepository).calcOldestNewestMinMax(dateFrom, dateTo);
 
-        var actualResult = statisticService.oldestNewestMinMax(month, year);
+        var actualResult = statisticService.calcOldestNewestMinMax(month, year);
+
+        assertThat(actualResult).isEqualTo(expectedResult);
+    }
+
+    @Test
+    void calcNormalizedPrice() {
+        var expectedResult = List.of(
+                NormalizedPriceDto.builder()
+                        .symbol("XRP")
+                        .normalizedPrice(new BigDecimal("0.21"))
+                        .build(),
+                NormalizedPriceDto.builder()
+                        .symbol("BTC")
+                        .normalizedPrice(new BigDecimal("0.55"))
+                        .build()
+        );
+
+        doReturn(expectedResult).when(quoteRepository).calcNormalizedPrice();
+
+        var actualResult = statisticService.calcNormalizedPrice();
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }

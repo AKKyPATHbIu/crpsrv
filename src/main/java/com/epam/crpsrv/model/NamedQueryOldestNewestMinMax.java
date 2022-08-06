@@ -1,5 +1,7 @@
 package com.epam.crpsrv.model;
 
+import static com.epam.crpsrv.model.NamedQueryOldestNewestMinMax.NQ_NORMALIZED_OLDEST_NEWEST_MIN_MAX;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 import javax.persistence.Column;
@@ -24,7 +26,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @NamedNativeQuery(
-        name = "oldest_newest_min_max",
+        name = NQ_NORMALIZED_OLDEST_NEWEST_MIN_MAX,
         query = "select\n"
                 + "  q.crypto_id,\n"
                 + "  min(q.price) as min_price,\n"
@@ -36,10 +38,10 @@ import lombok.ToString;
                 + "left join crypto c on c.id = q.crypto_id \n"
                 + "where \"timestamp\" between :dateFrom and :dateTo\n"
                 + "group by crypto_id, c.symbol",
-        resultSetMapping = "oldest_newest_min_max"
+        resultSetMapping = NQ_NORMALIZED_OLDEST_NEWEST_MIN_MAX
 )
 @SqlResultSetMapping(
-        name = "oldest_newest_min_max",
+        name = NQ_NORMALIZED_OLDEST_NEWEST_MIN_MAX,
         classes = @ConstructorResult(
                 targetClass = OldestNewestMinMaxDto.class,
                 columns = {
@@ -53,22 +55,9 @@ import lombok.ToString;
 )
 public class NamedQueryOldestNewestMinMax {
 
+    public static final String NQ_NORMALIZED_OLDEST_NEWEST_MIN_MAX = "oldest_newest_min_max";
+
     @Id
     @Column(name = "crypto_id")
     UUID cryptoId;
-
-    @Column
-    String symbol;
-
-    @Column(name = "min_price")
-    BigDecimal minPrice;
-
-    @Column(name = "max_price")
-    BigDecimal maxPrice;
-
-    @Column(name = "oldest_price")
-    BigDecimal oldestPrice;
-
-    @Column(name = "newest_price")
-    BigDecimal newestPrice;
 }
