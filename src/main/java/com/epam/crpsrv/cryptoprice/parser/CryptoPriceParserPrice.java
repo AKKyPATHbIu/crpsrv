@@ -1,9 +1,9 @@
-package com.epam.crpsrv.cryptopriceparser;
+package com.epam.crpsrv.cryptoprice.parser;
 
-import com.epam.crpsrv.cryptopriceparser.CryptoPriceDto.CryptoPriceDtoBuilder;
+import com.epam.crpsrv.cryptoprice.CryptoPriceDto.CryptoPriceDtoBuilder;
 import java.math.BigDecimal;
 
-class CryptoPriceParserPrice implements CryptoPriceParser {
+public class CryptoPriceParserPrice implements CryptoPriceParser {
 
     @Override
     public CryptoPriceDtoBuilder parse(String value, CryptoPriceDtoBuilder builder) {

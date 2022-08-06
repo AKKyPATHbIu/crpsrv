@@ -1,8 +1,8 @@
-package com.epam.crpsrv.cryptopriceparser;
+package com.epam.crpsrv.cryptoprice.parser;
 
-import com.epam.crpsrv.cryptopriceparser.CryptoPriceDto.CryptoPriceDtoBuilder;
+import com.epam.crpsrv.cryptoprice.CryptoPriceDto.CryptoPriceDtoBuilder;
 
-class CryptoPriceParserSymbol implements CryptoPriceParser {
+public class CryptoPriceParserSymbol implements CryptoPriceParser {
 
     @Override
     public CryptoPriceDtoBuilder parse(String value, CryptoPriceDtoBuilder builder) {

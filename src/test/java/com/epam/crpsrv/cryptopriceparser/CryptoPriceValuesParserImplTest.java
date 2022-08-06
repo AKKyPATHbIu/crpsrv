@@ -1,5 +1,10 @@
 package com.epam.crpsrv.cryptopriceparser;
 
+import com.epam.crpsrv.cryptoprice.CryptoPriceParserConfig;
+import com.epam.crpsrv.cryptoprice.CryptoPriceParserFactoryImpl;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceParserUnknown;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceValuesParser;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceValuesParserImpl;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

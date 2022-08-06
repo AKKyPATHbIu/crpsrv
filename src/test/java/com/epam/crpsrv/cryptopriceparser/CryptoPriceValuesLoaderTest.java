@@ -5,6 +5,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.epam.crpsrv.cryptoprice.CryptoPriceValuesLoader;
 import com.epam.crpsrv.service.CryptoPriceService;
 import java.io.IOException;
 import java.io.InputStream;

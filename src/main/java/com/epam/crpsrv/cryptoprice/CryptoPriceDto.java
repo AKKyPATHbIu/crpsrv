@@ -1,4 +1,4 @@
-package com.epam.crpsrv.cryptopriceparser;
+package com.epam.crpsrv.cryptoprice;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

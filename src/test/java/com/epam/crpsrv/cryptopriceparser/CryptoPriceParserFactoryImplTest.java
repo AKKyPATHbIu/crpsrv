@@ -1,11 +1,17 @@
 package com.epam.crpsrv.cryptopriceparser;
 
-import static com.epam.crpsrv.cryptopriceparser.CryptoPriceParser.COLUMN_PRICE;
-import static com.epam.crpsrv.cryptopriceparser.CryptoPriceParser.COLUMN_SYMBOL;
-import static com.epam.crpsrv.cryptopriceparser.CryptoPriceParser.COLUMN_TIMESTAMP;
-import static com.epam.crpsrv.cryptopriceparser.CryptoPriceParserUnknown.NAME_QP_UNKNOWN;
+import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceParser.COLUMN_PRICE;
+import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceParser.COLUMN_SYMBOL;
+import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceParser.COLUMN_TIMESTAMP;
+import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceParserUnknown.NAME_QP_UNKNOWN;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.epam.crpsrv.cryptoprice.CryptoPriceParserConfig;
+import com.epam.crpsrv.cryptoprice.CryptoPriceParserFactory;
+import com.epam.crpsrv.cryptoprice.CryptoPriceParserFactoryImpl;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceParser;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceParserUnknown;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceValuesParserImpl;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

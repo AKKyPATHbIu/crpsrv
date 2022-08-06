@@ -1,4 +1,6 @@
-package com.epam.crpsrv.cryptopriceparser;
+package com.epam.crpsrv.cryptoprice;
+
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceParser;
 
 public interface CryptoPriceParserFactory {
 

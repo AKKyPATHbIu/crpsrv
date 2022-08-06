@@ -1,5 +1,7 @@
-package com.epam.crpsrv.cryptopriceparser;
+package com.epam.crpsrv.cryptoprice.parser;
 
+import com.epam.crpsrv.cryptoprice.CryptoPriceDto;
+import com.epam.crpsrv.cryptoprice.CryptoPriceParserFactory;
 import com.epam.crpsrv.exception.CrpSrvException;
 import java.io.BufferedReader;
 import java.io.StringReader;

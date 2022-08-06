@@ -1,7 +1,7 @@
 package com.epam.crpsrv.service;
 
 import com.epam.crpsrv.model.CryptoPrice;
-import com.epam.crpsrv.cryptopriceparser.CryptoPriceValuesParser;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceValuesParser;
 import com.epam.crpsrv.repository.CryptoPriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

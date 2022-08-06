@@ -1,4 +1,4 @@
-package com.epam.crpsrv.cryptopriceparser;
+package com.epam.crpsrv.cryptoprice;
 
 import com.epam.crpsrv.exception.CrpSrvException;
 import com.epam.crpsrv.service.CryptoPriceService;

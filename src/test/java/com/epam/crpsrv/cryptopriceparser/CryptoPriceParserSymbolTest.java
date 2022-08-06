@@ -1,8 +1,10 @@
 package com.epam.crpsrv.cryptopriceparser;
 
-import static com.epam.crpsrv.cryptopriceparser.CryptoPriceParser.COLUMN_SYMBOL;
+import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceParser.COLUMN_SYMBOL;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+import com.epam.crpsrv.cryptoprice.CryptoPriceDto;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceParserSymbol;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

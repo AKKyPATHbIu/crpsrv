@@ -1,8 +1,10 @@
 package com.epam.crpsrv.cryptopriceparser;
 
-import static com.epam.crpsrv.cryptopriceparser.CryptoPriceParser.COLUMN_PRICE;
+import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceParser.COLUMN_PRICE;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.epam.crpsrv.cryptoprice.CryptoPriceDto;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceParserPrice;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

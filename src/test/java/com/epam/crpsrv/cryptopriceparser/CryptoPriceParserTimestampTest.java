@@ -1,8 +1,10 @@
 package com.epam.crpsrv.cryptopriceparser;
 
-import static com.epam.crpsrv.cryptopriceparser.CryptoPriceParser.COLUMN_TIMESTAMP;
+import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceParser.COLUMN_TIMESTAMP;
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.epam.crpsrv.cryptoprice.CryptoPriceDto;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceParserTimestamp;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

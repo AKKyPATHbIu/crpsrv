@@ -1,4 +1,6 @@
-package com.epam.crpsrv.cryptopriceparser;
+package com.epam.crpsrv.cryptoprice.parser;
+
+import com.epam.crpsrv.cryptoprice.CryptoPriceDto.CryptoPriceDtoBuilder;
 
 public interface CryptoPriceParser {
 
@@ -6,7 +8,7 @@ public interface CryptoPriceParser {
     String COLUMN_SYMBOL = "symbol";
     String COLUMN_PRICE = "price";
 
-    CryptoPriceDto.CryptoPriceDtoBuilder parse(String value, CryptoPriceDto.CryptoPriceDtoBuilder builder);
+    CryptoPriceDtoBuilder parse(String value, CryptoPriceDtoBuilder builder);
 
     String getColumnName();
 

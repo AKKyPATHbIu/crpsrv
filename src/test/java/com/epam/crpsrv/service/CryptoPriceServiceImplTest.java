@@ -6,8 +6,8 @@ import static org.mockito.Mockito.verify;
 
 import com.epam.crpsrv.model.Crypto;
 import com.epam.crpsrv.model.CryptoPrice;
-import com.epam.crpsrv.cryptopriceparser.CryptoPriceDto;
-import com.epam.crpsrv.cryptopriceparser.CryptoPriceValuesParser;
+import com.epam.crpsrv.cryptoprice.CryptoPriceDto;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceValuesParser;
 import com.epam.crpsrv.repository.CryptoPriceRepository;
 import java.math.BigDecimal;
 import java.util.List;
