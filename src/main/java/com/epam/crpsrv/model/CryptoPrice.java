@@ -19,11 +19,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 @Getter
 @Setter
 @SuperBuilder
+@DynamicUpdate
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "crypto_price")
