@@ -1,7 +1,7 @@
 package com.epam.crpsrv.quoteparser;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,7 +20,7 @@ import lombok.experimental.SuperBuilder;
 public class QuoteDto {
 
     @ToString.Include
-    private Date timestamp;
+    private LocalDateTime timestamp;
 
     @ToString.Include
     private String symbol;

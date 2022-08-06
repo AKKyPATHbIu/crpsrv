@@ -1,7 +1,7 @@
 package com.epam.crpsrv.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -40,7 +40,7 @@ public class Quote {
     @Column
     @ToString.Include
     @EqualsAndHashCode.Include
-    private Date timestamp;
+    private LocalDateTime timestamp;
 
     @ToString.Include
     @EqualsAndHashCode.Include

@@ -3,8 +3,7 @@ package com.epam.crpsrv.quoteparser;
 import static com.epam.crpsrv.quoteparser.QuoteParser.COLUMN_TIMESTAMP;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -20,9 +19,7 @@ class QuoteParserTimestampTest {
     void parse() {
         var timestamp = "1641009600000";
 
-        var gregorianCalendar = new GregorianCalendar(2022, Calendar.JANUARY, 1, 6, 0, 0);
-
-        var expectedDate = gregorianCalendar.getTime();
+        var expectedDate = LocalDateTime.of(2022, 1, 1, 6, 0);
         var expectedQuote = QuoteDto.builder()
                 .timestamp(expectedDate)
                 .build();
