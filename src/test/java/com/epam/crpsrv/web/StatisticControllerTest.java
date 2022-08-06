@@ -14,10 +14,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-@WebMvcTest(StatisticsController.class)
-class StatisticsControllerTest extends BaseControllerTest {
+@WebMvcTest(StatisticController.class)
+class StatisticControllerTest extends BaseControllerTest {
 
-    private final static String URL_BASE = "/statistics";
+    private final static String URL_BASE = "/statistic";
     private final static String URL_OLDEST_NEWEST_MIN_MAX = URL_BASE + "/oldest-newest-min-max";
     private final static String URL_NORMALIZED_RANGE = URL_BASE + "/normalized-range";
 

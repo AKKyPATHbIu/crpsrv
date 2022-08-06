@@ -19,7 +19,7 @@ class SwaggerConfig {
         return GroupedOpenApi.builder()
                 .group("Statistic")
                 .packagesToScan("com.epam.crpsrv.web")
-                .pathsToMatch("/statistics/**")
+                .pathsToMatch("/statistic/**")
                 .build();
     }
 

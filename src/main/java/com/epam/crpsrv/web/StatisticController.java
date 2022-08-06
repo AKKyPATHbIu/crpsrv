@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Validated
 @RestController
-@RequestMapping("statistics")
-public class StatisticsController {
+@RequestMapping("statistic")
+public class StatisticController {
 
     @Autowired
     StatisticService statisticService;
