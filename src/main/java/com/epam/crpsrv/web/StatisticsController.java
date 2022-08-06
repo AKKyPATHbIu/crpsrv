@@ -1,0 +1,30 @@
+package com.epam.crpsrv.web;
+
+import com.epam.crpsrv.model.OldestNewestMinMaxDto;
+import com.epam.crpsrv.service.StatisticService;
+import java.util.List;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@Validated
+@RestController
+@RequestMapping("statistics")
+public class StatisticsController {
+
+    @Autowired
+    StatisticService statisticService;
+
+    @GetMapping(value = "oldest-newest-min-max", produces = {"application/json"})
+    public List<OldestNewestMinMaxDto> oldestNewestMinMax(
+            @RequestParam @Min(1) @Max(12) int month,
+            @RequestParam @Min(2022) int year) {
+
+        return statisticService.oldestNewestMinMax(month, year);
+    }
+}
