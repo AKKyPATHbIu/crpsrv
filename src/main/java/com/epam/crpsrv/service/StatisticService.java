@@ -11,5 +11,7 @@ public interface StatisticService {
 
     List<OldestNewestMinMaxDto> calcOldestNewestMinMax(int month, int year);
 
+    OldestNewestMinMaxDto calcOldestNewestMinMax(int month, int year, String symbol);
+
     List<NormalizedPriceDto> calcNormalizedPrice();
 }

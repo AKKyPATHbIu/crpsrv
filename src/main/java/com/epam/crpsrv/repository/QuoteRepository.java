@@ -2,6 +2,7 @@ package com.epam.crpsrv.repository;
 
 import static com.epam.crpsrv.model.namedquery.NamedQueryCryptoNormalizedPrice.NQ_NORMALIZED_PRICE_ALL;
 import static com.epam.crpsrv.model.namedquery.NamedQueryOldestNewestMinMax.NQ_NORMALIZED_OLDEST_NEWEST_MIN_MAX;
+import static com.epam.crpsrv.model.namedquery.NamedQueryOldestNewestMinMaxByCrypto.NQ_NORMALIZED_OLDEST_NEWEST_MIN_MAX_BY_CRYPTO;
 
 import com.cosium.spring.data.jpa.entity.graph.repository.EntityGraphJpaRepository;
 import com.epam.crpsrv.dto.NormalizedPriceDto;
@@ -21,6 +22,13 @@ public interface QuoteRepository extends EntityGraphJpaRepository<Quote, UUID> {
     List<OldestNewestMinMaxDto> calcOldestNewestMinMax(
             @Param("dateFrom") LocalDate dateFrom,
             @Param("dateTo") LocalDate dateTo
+    );
+
+    @Query(name = NQ_NORMALIZED_OLDEST_NEWEST_MIN_MAX_BY_CRYPTO, nativeQuery = true)
+    OldestNewestMinMaxDto calcOldestNewestMinMax(
+            @Param("dateFrom") LocalDate dateFrom,
+            @Param("dateTo") LocalDate dateTo,
+            @Param("symbol") String symbol
     );
 
     @Query(name = NQ_NORMALIZED_PRICE_ALL, nativeQuery = true)

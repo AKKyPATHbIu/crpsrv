@@ -25,7 +25,7 @@ class StatisticServiceImplTest {
     StatisticServiceImpl statisticService;
 
     @Test
-    void oldestNewestMinMaxByPeriod() {
+    void calcOldestNewestMinMaxByPeriod() {
         var dateFrom = LocalDate.of(2022, 1, 1);
         var dateTo = LocalDate.of(2022, 1, 10);
 
@@ -45,7 +45,7 @@ class StatisticServiceImplTest {
     }
 
     @Test
-    void oldestNewestMinMaxByMonthAndYear() {
+    void calcOldestNewestMinMaxByMonthAndYear() {
         var year = 2022;
         var month = 1;
 
@@ -63,6 +63,29 @@ class StatisticServiceImplTest {
         doReturn(expectedResult).when(quoteRepository).calcOldestNewestMinMax(dateFrom, dateTo);
 
         var actualResult = statisticService.calcOldestNewestMinMax(month, year);
+
+        assertThat(actualResult).isEqualTo(expectedResult);
+    }
+
+    @Test
+    void calcOldestNewestMinMaxByMonthAndYearAndSymbol() {
+        var year = 2022;
+        var month = 1;
+
+        var dateFrom = LocalDate.of(2022, 1, 1);
+        var dateTo = LocalDate.of(2022, 2, 1);
+
+        var symbol = "BTC";
+
+        var expectedResult = OldestNewestMinMaxDto.builder()
+                .minPrice(new BigDecimal("35813.21"))
+                .maxPrice(new BigDecimal("336.98"))
+                .symbol(symbol)
+                .build();
+
+        doReturn(expectedResult).when(quoteRepository).calcOldestNewestMinMax(dateFrom, dateTo, symbol);
+
+        var actualResult = statisticService.calcOldestNewestMinMax(month, year, symbol);
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }

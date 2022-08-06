@@ -9,6 +9,7 @@ import javax.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,15 @@ public class StatisticsController {
             @RequestParam @Min(2022) int year) {
 
         return statisticService.calcOldestNewestMinMax(month, year);
+    }
+
+    @GetMapping(value = "oldest-newest-min-max/{symbol}", produces = {"application/json"})
+    public OldestNewestMinMaxDto calcOldestNewestMinMaxbySymbol(
+            @RequestParam @Min(1) @Max(12) int month,
+            @RequestParam @Min(2022) int year,
+            @PathVariable String symbol) {
+
+        return statisticService.calcOldestNewestMinMax(month, year, symbol);
     }
 
     @GetMapping(value = "normalized-price", produces = {"application/json"})
