@@ -6,7 +6,7 @@ import static org.mockito.Mockito.doReturn;
 import com.epam.crpsrv.model.OldestNewestMinMaxDto;
 import com.epam.crpsrv.repository.QuoteRepository;
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,15 +25,8 @@ class StatisticServiceImplTest {
 
     @Test
     void oldestNewestMinMaxByPeriod() {
-        var c = Calendar.getInstance();
-
-        c.set(2022, 0, 1);
-
-        var dateFrom = c.getTime();
-
-        c.set(2022, 0, 10);
-
-        var dateTo = c.getTime();
+        var dateFrom = LocalDate.of(2022, 1, 1);
+        var dateTo = LocalDate.of(2022, 1, 10);
 
         var expectedDto = OldestNewestMinMaxDto.builder()
                 .minPrice(new BigDecimal("0.8298"))
@@ -52,19 +45,11 @@ class StatisticServiceImplTest {
 
     @Test
     void oldestNewestMinMaxByMonthAndYear() {
-        var month = 1;
         var year = 2022;
+        var month = 1;
 
-        var c = Calendar.getInstance();
-        c.set(year, month - 1, 1, 0, 0, 0);
-        c.set(Calendar.MILLISECOND, 0);
-
-        var dateFrom = c.getTime();
-
-        c.add(Calendar.MONTH, 1);
-        c.add(Calendar.MILLISECOND, -1);
-
-        var dateTo = c.getTime();
+        var dateFrom = LocalDate.of(2022, 1, 1);
+        var dateTo = LocalDate.of(2022, 2, 1);
 
         var expectedDto = OldestNewestMinMaxDto.builder()
                 .minPrice(new BigDecimal("46813.21"))

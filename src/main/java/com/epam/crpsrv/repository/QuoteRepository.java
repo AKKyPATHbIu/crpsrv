@@ -4,6 +4,7 @@ import com.cosium.spring.data.jpa.entity.graph.repository.EntityGraphJpaReposito
 import com.epam.crpsrv.model.Crypto;
 import com.epam.crpsrv.model.OldestNewestMinMaxDto;
 import com.epam.crpsrv.model.Quote;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -18,5 +19,8 @@ public interface QuoteRepository extends EntityGraphJpaRepository<Quote, UUID> {
     Optional<Quote> findByTimestampAndCrypto(Date timestamp, Crypto crypto);
 
     @Query(name = "oldest_newest_min_max", nativeQuery = true)
-    List<OldestNewestMinMaxDto> oldestNewestMinMax(@Param("dateFrom") Date dateFrom, @Param("dateTo") Date dateTo);
+    List<OldestNewestMinMaxDto> oldestNewestMinMax(
+            @Param("dateFrom") LocalDate dateFrom,
+            @Param("dateTo") LocalDate dateTo
+    );
 }
