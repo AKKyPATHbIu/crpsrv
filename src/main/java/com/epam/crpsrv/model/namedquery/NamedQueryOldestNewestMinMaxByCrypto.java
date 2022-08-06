@@ -30,14 +30,14 @@ import lombok.ToString;
         name = NQ_NORMALIZED_OLDEST_NEWEST_MIN_MAX_BY_CRYPTO,
         query = "select\n"
                 + "  q.crypto_id,\n"
-                + "  min(q.price) as min_price,\n"
-                + "  max(q.price) as max_price,\n"
-                + "  (select price from quote q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" between :dateFrom and :dateTo order by q2.\"timestamp\" limit 1) as oldest_price,\n"
-                + "  (select price from quote q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" between :dateFrom and :dateTo order by q2.\"timestamp\" desc limit 1) as newest_price,\n"
-                + "  c.symbol \n"
-                + "from quote q\n"
-                + "left join crypto c on c.id = q.crypto_id \n"
-                + "where \"timestamp\" between :dateFrom and :dateTo and c.symbol ilike :symbol\n"
+                + "  c.symbol,\n"
+                + "  coalesce(min(q.price), 0.0) as min_price,\n"
+                + "  coalesce(max(q.price), 0.0) as max_price,\n"
+                + "  coalesce((select price from quote q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" between :dateFrom and :dateTo order by q2.\"timestamp\" limit 1), 0.0) as oldest_price,\n"
+                + "  coalesce((select price from quote q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" between :dateFrom and :dateTo order by q2.\"timestamp\" desc limit 1), 0.0) as newest_price\n"
+                + "from crypto c\n"
+                + "left join quote q on q.crypto_id = c.id and \"timestamp\" between :dateFrom and :dateTo\n"
+                + "where c.symbol ilike :symbol\n"
                 + "group by crypto_id, c.symbol",
         resultSetMapping = NQ_NORMALIZED_OLDEST_NEWEST_MIN_MAX_BY_CRYPTO
 )
