@@ -32,7 +32,7 @@ class StatisticsControllerTest extends BaseControllerTest {
     StatisticService statisticService;
 
     @Test
-    void oldestNewestMinMax() throws Exception {
+    void calcOldestNewestMinMax() throws Exception {
         var expectedDto = OldestNewestMinMaxDto.builder()
                 .maxPrice(BigDecimal.TEN)
                 .minPrice(BigDecimal.ONE)
@@ -48,6 +48,28 @@ class StatisticsControllerTest extends BaseControllerTest {
         var url = URL_OLDEST_NEWEST_MIN_MAX + "?month=" + month + "&year=" + year;
 
         var actualResult = (List<OldestNewestMinMaxDto>) executeGet(url, TYPE_REFERENCE_OLDEST_NEWEST_MIN_MAX_DTOS);
+
+        assertThat(actualResult).isEqualTo(expectedResult);
+    }
+
+    @Test
+    void calcOldestNewestMinMaxByCrypto() throws Exception {
+        var symbol = "BTC";
+
+        var expectedResult = OldestNewestMinMaxDto.builder()
+                .maxPrice(new BigDecimal("100.25"))
+                .minPrice(new BigDecimal("80.25"))
+                .symbol(symbol)
+                .build();
+
+        var month = 1;
+        var year = 2022;
+
+        doReturn(expectedResult).when(statisticService).calcOldestNewestMinMax(month, year, symbol);
+
+        var url = URL_OLDEST_NEWEST_MIN_MAX + "/" + symbol + "?month=" + month + "&year=" + year;
+
+        var actualResult = executeGet(url, OldestNewestMinMaxDto.class);
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }
