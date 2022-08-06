@@ -15,11 +15,20 @@ import org.springframework.context.annotation.Configuration;
 class SwaggerConfig {
 
     @Bean
-    public GroupedOpenApi statisticsApi() {
+    public GroupedOpenApi statisticApi() {
         return GroupedOpenApi.builder()
-                .group("Statistics")
+                .group("Statistic")
                 .packagesToScan("com.epam.crpsrv.web")
                 .pathsToMatch("/statistics/**")
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi priceApi() {
+        return GroupedOpenApi.builder()
+                .group("Price")
+                .packagesToScan("com.epam.crpsrv.web")
+                .pathsToMatch("/price/**")
                 .build();
     }
 }
