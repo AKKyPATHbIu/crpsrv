@@ -1,11 +1,11 @@
-package com.epam.crpsrv.quoteparser;
+package com.epam.crpsrv.cryptopriceparser;
 
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import com.epam.crpsrv.service.QuoteService;
+import com.epam.crpsrv.service.CryptoPriceService;
 import java.io.IOException;
 import java.io.InputStream;
 import org.junit.jupiter.api.Test;
@@ -18,16 +18,16 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
 
 @ExtendWith(MockitoExtension.class)
-class PriceValuesLoaderTest {
+class CryptoPriceValuesLoaderTest {
 
     @Mock
     ResourcePatternResolver resourcePatternResolver;
 
     @Mock
-    QuoteService quoteService;
+    CryptoPriceService cryptoPriceService;
 
     @InjectMocks
-    PriceValuesLoader priceValuesLoader;
+    CryptoPriceValuesLoader cryptoPriceValuesLoader;
 
     @Test
     void onApplicationEvent() throws IOException {
@@ -41,8 +41,8 @@ class PriceValuesLoaderTest {
         doReturn(mockedInputStream).when(mockedResource).getInputStream();
         doReturn(expectedContent).when(mockedInputStream).readAllBytes();
 
-        priceValuesLoader.onApplicationEvent(mockedRefreshEvent);
+        cryptoPriceValuesLoader.onApplicationEvent(mockedRefreshEvent);
 
-        verify(quoteService, times(1)).saveFromByteContent(expectedContent);
+        verify(cryptoPriceService, times(1)).saveFromByteContent(expectedContent);
     }
 }

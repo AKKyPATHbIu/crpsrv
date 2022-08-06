@@ -5,7 +5,7 @@ import static org.mockito.Mockito.doReturn;
 
 import com.epam.crpsrv.dto.NormalizedRangeDto;
 import com.epam.crpsrv.dto.OldestNewestMinMaxDto;
-import com.epam.crpsrv.repository.QuoteRepository;
+import com.epam.crpsrv.repository.CryptoPriceRepository;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -19,7 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class StatisticServiceImplTest {
 
     @Mock
-    QuoteRepository quoteRepository;
+    CryptoPriceRepository cryptoPriceRepository;
 
     @InjectMocks
     StatisticServiceImpl statisticService;
@@ -37,7 +37,7 @@ class StatisticServiceImplTest {
 
         var expectedResult = List.of(expectedDto);
 
-        doReturn(expectedResult).when(quoteRepository).calcOldestNewestMinMax(dateFrom, dateTo);
+        doReturn(expectedResult).when(cryptoPriceRepository).calcOldestNewestMinMax(dateFrom, dateTo);
 
         var actualResult = statisticService.calcOldestNewestMinMax(dateFrom, dateTo);
 
@@ -60,7 +60,7 @@ class StatisticServiceImplTest {
 
         var expectedResult = List.of(expectedDto);
 
-        doReturn(expectedResult).when(quoteRepository).calcOldestNewestMinMax(dateFrom, dateTo);
+        doReturn(expectedResult).when(cryptoPriceRepository).calcOldestNewestMinMax(dateFrom, dateTo);
 
         var actualResult = statisticService.calcOldestNewestMinMax(month, year);
 
@@ -83,7 +83,7 @@ class StatisticServiceImplTest {
                 .symbol(symbol)
                 .build();
 
-        doReturn(expectedResult).when(quoteRepository).calcOldestNewestMinMax(dateFrom, dateTo, symbol);
+        doReturn(expectedResult).when(cryptoPriceRepository).calcOldestNewestMinMax(dateFrom, dateTo, symbol);
 
         var actualResult = statisticService.calcOldestNewestMinMax(month, year, symbol);
 
@@ -103,7 +103,7 @@ class StatisticServiceImplTest {
                         .build()
         );
 
-        doReturn(expectedResult).when(quoteRepository).calcNormalizedRange();
+        doReturn(expectedResult).when(cryptoPriceRepository).calcNormalizedRange();
 
         var actualResult = statisticService.calcNormalizedRange();
 
@@ -120,7 +120,7 @@ class StatisticServiceImplTest {
 
         var date = LocalDate.of(2022, 1, 1);
 
-        doReturn(expectedResult).when(quoteRepository).calcNormalizedRange(date, symbol);
+        doReturn(expectedResult).when(cryptoPriceRepository).calcNormalizedRange(date, symbol);
 
         var actualResult = statisticService.calcNormalizedRange(date, symbol);
 

@@ -30,7 +30,7 @@ import lombok.ToString;
         name = NQ_NORMALIZED_RANGE_BY_CRYPTO,
         query = "select\n"
                 + "  c.symbol,\n"
-                + "  coalesce((select trunc((max(price) - min(price)) / min(price), 4) from quote q where q.crypto_id = c.id and date(\"timestamp\") = :date), 0.0) as norm_range\n"
+                + "  coalesce((select trunc((max(price) - min(price)) / min(price), 4) from crypto_price q where q.crypto_id = c.id and date(\"timestamp\") = :date), 0.0) as norm_range\n"
                 + "from crypto c\n"
                 + "where c.symbol ilike :symbol\n"
                 + "order by norm_range desc",

@@ -1,4 +1,4 @@
-package com.epam.crpsrv.quoteparser;
+package com.epam.crpsrv.cryptopriceparser;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -17,7 +17,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @ToString(onlyExplicitlyIncluded = true)
 @EqualsAndHashCode(callSuper = false)
-public class QuoteDto {
+public class CryptoPriceDto {
 
     @ToString.Include
     private LocalDateTime timestamp;

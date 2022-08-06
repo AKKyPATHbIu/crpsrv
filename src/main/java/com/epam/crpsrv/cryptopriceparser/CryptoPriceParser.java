@@ -1,12 +1,12 @@
-package com.epam.crpsrv.quoteparser;
+package com.epam.crpsrv.cryptopriceparser;
 
-public interface QuoteParser {
+public interface CryptoPriceParser {
 
     String COLUMN_TIMESTAMP = "timestamp";
     String COLUMN_SYMBOL = "symbol";
     String COLUMN_PRICE = "price";
 
-    QuoteDto.QuoteDtoBuilder parse(String value, QuoteDto.QuoteDtoBuilder builder);
+    CryptoPriceDto.CryptoPriceDtoBuilder parse(String value, CryptoPriceDto.CryptoPriceDtoBuilder builder);
 
     String getColumnName();
 

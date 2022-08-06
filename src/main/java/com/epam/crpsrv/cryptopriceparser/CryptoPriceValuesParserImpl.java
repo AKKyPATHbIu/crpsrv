@@ -1,4 +1,4 @@
-package com.epam.crpsrv.quoteparser;
+package com.epam.crpsrv.cryptopriceparser;
 
 import com.epam.crpsrv.exception.CrpSrvException;
 import java.io.BufferedReader;
@@ -12,19 +12,19 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 @Component
-public class QuoteValuesParserImpl implements QuoteValuesParser {
+public class CryptoPriceValuesParserImpl implements CryptoPriceValuesParser {
 
     private static final String DELIMETER = ",";
 
     @Autowired
-    QuoteParserFactory quoteParserFactory;
+    CryptoPriceParserFactory cryptoPriceParserFactory;
 
     @Autowired
-    @Qualifier("quoteParsers")
-    List<QuoteParser> quoteParsers;
+    @Qualifier("cryptoPriceParsers")
+    List<CryptoPriceParser> cryptoPriceParsers;
 
     @Override
-    public List<QuoteDto> parse(byte[] content) {
+    public List<CryptoPriceDto> parse(byte[] content) {
         var br = new BufferedReader(new StringReader(new String(content)));
         var lines = br.lines().collect(Collectors.toList());
 
@@ -34,33 +34,33 @@ public class QuoteValuesParserImpl implements QuoteValuesParser {
 
         String header = lines.get(0);
         var columnNames = Arrays.stream(header.split(DELIMETER)).map(h -> h.trim()).collect(Collectors.toList());
-        var parsers = columnNames.stream().map(n -> quoteParserFactory.getInstance(n))
+        var parsers = columnNames.stream().map(n -> cryptoPriceParserFactory.getInstance(n))
                 .collect(Collectors.toList());
 
         checkHeaders(parsers);
 
-        var result = new ArrayList<QuoteDto>();
+        var result = new ArrayList<CryptoPriceDto>();
         for (int i = 1; i < lines.size(); i++) {
             result.add(parse(parsers, lines.get(i), i));
         }
         return result;
     }
 
-    private void checkHeaders(List<QuoteParser> parsers) {
-        var missedParsers = quoteParsers.stream().filter(p -> !parsers.contains(p))
+    private void checkHeaders(List<CryptoPriceParser> parsers) {
+        var missedParsers = cryptoPriceParsers.stream().filter(p -> !parsers.contains(p))
                 .collect(Collectors.toList());
         if (!missedParsers.isEmpty()) {
-            var missedHeaders = missedParsers.stream().map(QuoteParser::getColumnName).collect(Collectors.toList());
+            var missedHeaders = missedParsers.stream().map(CryptoPriceParser::getColumnName).collect(Collectors.toList());
             throw new CrpSrvException(String.format("Headers are missed: %s", String.join(",", missedHeaders)));
         }
     }
 
-    private QuoteDto parse(List<QuoteParser> parsers, String value, int lineNumber) {
+    private CryptoPriceDto parse(List<CryptoPriceParser> parsers, String value, int lineNumber) {
         var values = Arrays.stream(value.split(DELIMETER)).map(v -> v.trim()).collect(Collectors.toList());
         if (values.size() != parsers.size()) {
             throw new CrpSrvException(String.format("Columns count doesn't match the header, line = %d", lineNumber));
         }
-        var builder = QuoteDto.builder();
+        var builder = CryptoPriceDto.builder();
 
         for (int i = 0; i < values.size(); i++) {
             parsers.get(i).parse(values.get(i), builder);

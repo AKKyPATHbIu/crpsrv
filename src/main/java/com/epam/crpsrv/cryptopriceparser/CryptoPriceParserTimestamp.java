@@ -1,14 +1,14 @@
-package com.epam.crpsrv.quoteparser;
+package com.epam.crpsrv.cryptopriceparser;
 
-import com.epam.crpsrv.quoteparser.QuoteDto.QuoteDtoBuilder;
+import com.epam.crpsrv.cryptopriceparser.CryptoPriceDto.CryptoPriceDtoBuilder;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.TimeZone;
 
-class QuoteParserTimestamp implements QuoteParser {
+class CryptoPriceParserTimestamp implements CryptoPriceParser {
 
     @Override
-    public QuoteDtoBuilder parse(String value, QuoteDtoBuilder builder) {
+    public CryptoPriceDtoBuilder parse(String value, CryptoPriceDtoBuilder builder) {
         var timestamp = LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(value)),
                 TimeZone.getDefault().toZoneId());
         return builder.timestamp(timestamp);

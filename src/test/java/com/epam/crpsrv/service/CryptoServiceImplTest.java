@@ -33,33 +33,33 @@ class CryptoServiceImplTest {
 
     @Test
     void save() {
-        var savedQuote = Crypto.builder()
+        var expectedCryptoPrice = Crypto.builder()
                 .symbol(EXPECTED_SYMBOL)
                 .build();
 
-        doReturn(EXPECTED_CRYPTO).when(cryptoRepository).save(savedQuote);
+        doReturn(EXPECTED_CRYPTO).when(cryptoRepository).save(expectedCryptoPrice);
 
-        var actualQuote = cryptoService.save(EXPECTED_SYMBOL);
+        var actualCryptoPrice = cryptoService.save(EXPECTED_SYMBOL);
 
-        assertThat(actualQuote).isEqualTo(EXPECTED_CRYPTO);
+        assertThat(actualCryptoPrice).isEqualTo(EXPECTED_CRYPTO);
     }
 
     @Test
     void findById() {
         doReturn(Optional.of(EXPECTED_CRYPTO)).when(cryptoRepository).findById(EXPECTED_ID);
 
-        var actualQuote = cryptoService.findById(EXPECTED_ID);
+        var actualCryptoPrice = cryptoService.findById(EXPECTED_ID);
 
-        assertThat(actualQuote).isEqualTo(EXPECTED_CRYPTO);
+        assertThat(actualCryptoPrice).isEqualTo(EXPECTED_CRYPTO);
     }
 
     @Test
     void findAll() {
-        var expectedQuotes = List.of(EXPECTED_CRYPTO);
-        doReturn(expectedQuotes).when(cryptoRepository).findAll();
+        var expectedCryptoPrices = List.of(EXPECTED_CRYPTO);
+        doReturn(expectedCryptoPrices).when(cryptoRepository).findAll();
 
-        var actualQuotes = cryptoService.findAll();
-        assertThat(actualQuotes).isEqualTo(expectedQuotes);
+        var actualCryptoPrices = cryptoService.findAll();
+        assertThat(actualCryptoPrices).isEqualTo(expectedCryptoPrices);
     }
 
     @Nested

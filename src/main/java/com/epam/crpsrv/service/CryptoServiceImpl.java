@@ -17,9 +17,9 @@ public class CryptoServiceImpl implements CryptoService {
 
     @Override
     public Crypto save(String symbol) {
-        var quote = Crypto.builder().symbol(symbol)
+        var crypto = Crypto.builder().symbol(symbol)
                 .build();
-        return cryptoRepository.save(quote);
+        return cryptoRepository.save(crypto);
     }
 
     @Override

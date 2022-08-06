@@ -3,7 +3,7 @@ package com.epam.crpsrv.service;
 import com.epam.crpsrv.dto.NormalizedRangeDto;
 import com.epam.crpsrv.dto.OldestNewestMinMaxDto;
 import com.epam.crpsrv.exception.CrpSrvException;
-import com.epam.crpsrv.repository.QuoteRepository;
+import com.epam.crpsrv.repository.CryptoPriceRepository;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +13,11 @@ import org.springframework.stereotype.Service;
 public class StatisticServiceImpl implements StatisticService {
 
     @Autowired
-    QuoteRepository quoteRepository;
+    CryptoPriceRepository cryptoPriceRepository;
 
     @Override
     public List<OldestNewestMinMaxDto> calcOldestNewestMinMax(LocalDate dateFrom, LocalDate dateTo) {
-        return quoteRepository.calcOldestNewestMinMax(dateFrom, dateTo);
+        return cryptoPriceRepository.calcOldestNewestMinMax(dateFrom, dateTo);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class StatisticServiceImpl implements StatisticService {
         var dateFrom = LocalDate.of(year, month, 1);
         var dateTo = dateFrom.plusMonths(1);
 
-        return quoteRepository.calcOldestNewestMinMax(dateFrom, dateTo);
+        return cryptoPriceRepository.calcOldestNewestMinMax(dateFrom, dateTo);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class StatisticServiceImpl implements StatisticService {
         var dateFrom = LocalDate.of(year, month, 1);
         var dateTo = dateFrom.plusMonths(1);
 
-        var result = quoteRepository.calcOldestNewestMinMax(dateFrom, dateTo, symbol);
+        var result = cryptoPriceRepository.calcOldestNewestMinMax(dateFrom, dateTo, symbol);
         if (result == null) {
             throw new CrpSrvException(String.format("Crypto with symbol %s not exists", symbol));
         }
@@ -42,11 +42,11 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Override
     public List<NormalizedRangeDto> calcNormalizedRange() {
-        return quoteRepository.calcNormalizedRange();
+        return cryptoPriceRepository.calcNormalizedRange();
     }
 
     @Override
     public NormalizedRangeDto calcNormalizedRange(LocalDate date, String symbol) {
-        return quoteRepository.calcNormalizedRange(date, symbol);
+        return cryptoPriceRepository.calcNormalizedRange(date, symbol);
     }
 }

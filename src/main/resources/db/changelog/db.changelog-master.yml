@@ -2,10 +2,10 @@ databaseChangeLog:
   - include:
       file: db/changelog/ddl-init.sql
   - include:
-      file: db/changelog/ddl-alter-quote-timestamp.sql
+      file: db/changelog/ddl-alter-crypto-price-timestamp.sql
   - include:
       file: db/changelog/ddl-crypto-add-unique-index.sql
   - include:
-      file: db/changelog/ddl-quote-add-index.sql
+      file: db/changelog/ddl-crypto-price-add-index.sql
   - include:
-      file: db/changelog/ddl-quote-unique-index-by-timestamp-and-crypto.sql
+      file: db/changelog/ddl-crypto-price-unique-index-by-timestamp-and-crypto.sql

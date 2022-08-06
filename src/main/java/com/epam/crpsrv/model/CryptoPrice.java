@@ -26,10 +26,10 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "quote")
+@Table(name = "crypto_price")
 @ToString(onlyExplicitlyIncluded = true)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-public class Quote {
+public class CryptoPrice {
 
     @Id
     @ToString.Include

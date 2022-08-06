@@ -33,10 +33,10 @@ import lombok.ToString;
                 + "  c.symbol,\n"
                 + "  coalesce(min(q.price), 0.0) as min_price,\n"
                 + "  coalesce(max(q.price), 0.0) as max_price,\n"
-                + "  coalesce((select price from quote q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" between :dateFrom and :dateTo order by q2.\"timestamp\" limit 1), 0.0) as oldest_price,\n"
-                + "  coalesce((select price from quote q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" between :dateFrom and :dateTo order by q2.\"timestamp\" desc limit 1), 0.0) as newest_price\n"
+                + "  coalesce((select price from crypto_price q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" between :dateFrom and :dateTo order by q2.\"timestamp\" limit 1), 0.0) as oldest_price,\n"
+                + "  coalesce((select price from crypto_price q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" between :dateFrom and :dateTo order by q2.\"timestamp\" desc limit 1), 0.0) as newest_price\n"
                 + "from crypto c\n"
-                + "left join quote q on q.crypto_id = c.id and \"timestamp\" between :dateFrom and :dateTo\n"
+                + "left join crypto_price q on q.crypto_id = c.id and \"timestamp\" between :dateFrom and :dateTo\n"
                 + "group by crypto_id, c.symbol",
         resultSetMapping = NQ_NORMALIZED_OLDEST_NEWEST_MIN_MAX
 )

@@ -1,4 +1,4 @@
-package com.epam.crpsrv.quoteparser;
+package com.epam.crpsrv.cryptopriceparser;
 
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest
-@ContextConfiguration(classes = {QuoteParserFactoryImpl.class, QuoteValuesParserImpl.class, QuoteParserUnknown.class})
-@Import(value = {QuoteParserConfig.class})
-class QuoteValuesParserImplTest {
+@ContextConfiguration(classes = {CryptoPriceParserFactoryImpl.class, CryptoPriceValuesParserImpl.class, CryptoPriceParserUnknown.class})
+@Import(value = {CryptoPriceParserConfig.class})
+class CryptoPriceValuesParserImplTest {
 
     private static final String BTC_VALUES =
             "  timestamp,   price,symbol   \n" +
@@ -18,11 +18,11 @@ class QuoteValuesParserImplTest {
                     "1641020400000,46979.61,BTC";
 
     @Autowired
-    private QuoteValuesParser quoteValuesParser;
+    private CryptoPriceValuesParser cryptoPriceValuesParser;
 
     @Test
     void parse() {
-        var actualQuotes = quoteValuesParser.parse(BTC_VALUES.getBytes(StandardCharsets.UTF_8));
-        System.out.println(actualQuotes);
+        var actualCryptoPrices = cryptoPriceValuesParser.parse(BTC_VALUES.getBytes(StandardCharsets.UTF_8));
+        System.out.println(actualCryptoPrices);
     }
 }

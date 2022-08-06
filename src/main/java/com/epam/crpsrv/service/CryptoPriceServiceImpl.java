@@ -1,39 +1,39 @@
 package com.epam.crpsrv.service;
 
-import com.epam.crpsrv.model.Quote;
-import com.epam.crpsrv.quoteparser.QuoteValuesParser;
-import com.epam.crpsrv.repository.QuoteRepository;
+import com.epam.crpsrv.model.CryptoPrice;
+import com.epam.crpsrv.cryptopriceparser.CryptoPriceValuesParser;
+import com.epam.crpsrv.repository.CryptoPriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class QuoteServiceImpl implements QuoteService {
+public class CryptoPriceServiceImpl implements CryptoPriceService {
 
     @Autowired
-    QuoteRepository quoteRepository;
+    CryptoPriceRepository cryptoPriceRepository;
 
     @Autowired
-    QuoteValuesParser quoteValuesParser;
+    CryptoPriceValuesParser cryptoPriceValuesParser;
 
     @Autowired
     CryptoService cryptoService;
 
     @Override
     public void saveFromByteContent(byte[] content) {
-        var quotes = quoteValuesParser.parse(content);
-        quotes.forEach(q -> {
+        var cryptoPrices = cryptoPriceValuesParser.parse(content);
+        cryptoPrices.forEach(q -> {
             var symbol = q.getSymbol();
             var crypto = cryptoService.saveIfNotExists(symbol);
 
-            var quote = Quote.builder()
+            var cryptoPrice = CryptoPrice.builder()
                     .crypto(crypto)
                     .timestamp(q.getTimestamp())
                     .price(q.getPrice())
                     .build();
 
-            quoteRepository.save(quote);
+            cryptoPriceRepository.save(cryptoPrice);
         });
     }
 }

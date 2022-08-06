@@ -1,6 +1,6 @@
 package com.epam.crpsrv.service;
 
-public interface QuoteService {
+public interface CryptoPriceService {
 
     void saveFromByteContent(byte[] content);
 }

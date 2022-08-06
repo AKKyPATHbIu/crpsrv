@@ -1,7 +1,7 @@
-package com.epam.crpsrv.quoteparser;
+package com.epam.crpsrv.cryptopriceparser;
 
 import com.epam.crpsrv.exception.CrpSrvException;
-import com.epam.crpsrv.service.QuoteService;
+import com.epam.crpsrv.service.CryptoPriceService;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +16,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @Service
 @Profile("compose")
-public class PriceValuesLoader implements ApplicationListener<ContextRefreshedEvent> {
+public class CryptoPriceValuesLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     private static final String PRICES_LOCATION_PATTERN = "classpath:/prices/*.csv";
 
     @Autowired
-    QuoteService quoteService;
+    CryptoPriceService cryptoPriceService;
 
     @Autowired
     ResourcePatternResolver resourcePatternResolver;
@@ -41,7 +41,7 @@ public class PriceValuesLoader implements ApplicationListener<ContextRefreshedEv
         for (Resource r : resources) {
             try {
                 byte[] bytes = r.getInputStream().readAllBytes();
-                quoteService.saveFromByteContent(bytes);
+                cryptoPriceService.saveFromByteContent(bytes);
             } catch (IOException ex) {
                 log.error(String.format("Failed to import %s", r.getFilename()));
             } catch (CrpSrvException ex) {

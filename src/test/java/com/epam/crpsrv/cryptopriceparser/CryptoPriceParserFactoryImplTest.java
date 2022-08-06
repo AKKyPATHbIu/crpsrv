@@ -1,9 +1,9 @@
-package com.epam.crpsrv.quoteparser;
+package com.epam.crpsrv.cryptopriceparser;
 
-import static com.epam.crpsrv.quoteparser.QuoteParser.COLUMN_PRICE;
-import static com.epam.crpsrv.quoteparser.QuoteParser.COLUMN_SYMBOL;
-import static com.epam.crpsrv.quoteparser.QuoteParser.COLUMN_TIMESTAMP;
-import static com.epam.crpsrv.quoteparser.QuoteParserUnknown.NAME_QP_UNKNOWN;
+import static com.epam.crpsrv.cryptopriceparser.CryptoPriceParser.COLUMN_PRICE;
+import static com.epam.crpsrv.cryptopriceparser.CryptoPriceParser.COLUMN_SYMBOL;
+import static com.epam.crpsrv.cryptopriceparser.CryptoPriceParser.COLUMN_TIMESTAMP;
+import static com.epam.crpsrv.cryptopriceparser.CryptoPriceParserUnknown.NAME_QP_UNKNOWN;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Nested;
@@ -15,16 +15,16 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest
-@ContextConfiguration(classes = {QuoteParserFactoryImpl.class, QuoteValuesParserImpl.class, QuoteParserUnknown.class})
-@Import(value = {QuoteParserConfig.class})
-class QuoteParserFactoryImplTest {
+@ContextConfiguration(classes = {CryptoPriceParserFactoryImpl.class, CryptoPriceValuesParserImpl.class, CryptoPriceParserUnknown.class})
+@Import(value = {CryptoPriceParserConfig.class})
+class CryptoPriceParserFactoryImplTest {
 
     @Autowired
-    QuoteParserFactory quoteParserFactory;
+    CryptoPriceParserFactory cryptoPriceParserFactory;
 
     @Autowired
     @Qualifier(NAME_QP_UNKNOWN)
-    QuoteParser quoteParserUnknown;
+    CryptoPriceParser cryptoPriceParserUnknown;
 
     @Nested
     class GetInstance {
@@ -46,12 +46,12 @@ class QuoteParserFactoryImplTest {
 
         @Test
         void unknown() {
-            var actualParser = quoteParserFactory.getInstance("zzz");
-            assertThat(actualParser).isEqualTo(quoteParserUnknown);
+            var actualParser = cryptoPriceParserFactory.getInstance("zzz");
+            assertThat(actualParser).isEqualTo(cryptoPriceParserUnknown);
         }
 
         private void check(String columnName) {
-            var actualParser = quoteParserFactory.getInstance(columnName);
+            var actualParser = cryptoPriceParserFactory.getInstance(columnName);
             assertThat(actualParser.getColumnName()).isEqualTo(columnName);
         }
     }

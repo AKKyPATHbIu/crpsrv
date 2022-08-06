@@ -6,7 +6,7 @@ create table crypto (
   symbol   varchar(10)
 );
 
-create table quote
+create table crypto_price
 (
     id                 uuid primary key default gen_random_uuid(),
     "timestamp"        date not null,
