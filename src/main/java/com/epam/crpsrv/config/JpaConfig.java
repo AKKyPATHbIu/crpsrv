@@ -16,7 +16,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(repositoryFactoryBeanClass = EntityGraphJpaRepositoryFactoryBean.class)
+@EnableJpaRepositories(
+        repositoryFactoryBeanClass = EntityGraphJpaRepositoryFactoryBean.class,
+        basePackages = {"com.epam.crpsrv.repository"}
+)
 class JpaConfig {
 
     @Bean
