@@ -1,33 +1,34 @@
 package com.epam.crpsrv.cryptopriceparser;
 
-import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceParser.COLUMN_PRICE;
+import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceDtoBuilder.COLUMN_TIMESTAMP;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.epam.crpsrv.cryptoprice.CryptoPriceDto;
-import com.epam.crpsrv.cryptoprice.parser.CryptoPriceParserPrice;
-import java.math.BigDecimal;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceDtoBuilderTimestamp;
+import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class CryptoPriceParserPriceTest {
+class CryptoPriceDtoBuilderTimestampTest {
 
     @InjectMocks
-    CryptoPriceParserPrice cryptoPriceParserPrice;
+    CryptoPriceDtoBuilderTimestamp cryptoPriceParserTimestamp;
 
     @Test
     void parse() {
-        var price = "125.20";
+        var timestamp = "1641009600000";
 
+        var expectedDate = LocalDateTime.of(2022, 1, 1, 6, 0);
         var expectedCryptoPrice = CryptoPriceDto.builder()
-                .price(new BigDecimal(price))
+                .timestamp(expectedDate)
                 .build();
 
         var cryptoPriceBuilder = CryptoPriceDto.builder();
 
-        var actualBuilder = cryptoPriceParserPrice.parse(price, cryptoPriceBuilder);
+        var actualBuilder = cryptoPriceParserTimestamp.build(timestamp, cryptoPriceBuilder);
 
         var actualCryptoPrice = actualBuilder.build();
 
@@ -36,6 +37,6 @@ class CryptoPriceParserPriceTest {
 
     @Test
     void getColumnName() {
-        assertThat(cryptoPriceParserPrice.getColumnName()).isEqualTo(COLUMN_PRICE);
+        assertThat(cryptoPriceParserTimestamp.getColumnName()).isEqualTo(COLUMN_TIMESTAMP);
     }
 }

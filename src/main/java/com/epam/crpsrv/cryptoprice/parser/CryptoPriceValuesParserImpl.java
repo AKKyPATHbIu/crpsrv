@@ -23,7 +23,7 @@ public class CryptoPriceValuesParserImpl implements CryptoPriceValuesParser {
 
     @Autowired
     @Qualifier("cryptoPriceParsers")
-    List<CryptoPriceParser> cryptoPriceParsers;
+    List<CryptoPriceDtoBuilder> cryptoPriceDtoBuilders;
 
     @Override
     public List<CryptoPriceDto> parse(byte[] content) {
@@ -48,16 +48,16 @@ public class CryptoPriceValuesParserImpl implements CryptoPriceValuesParser {
         return result;
     }
 
-    private void checkHeaders(List<CryptoPriceParser> parsers) {
-        var missedParsers = cryptoPriceParsers.stream().filter(p -> !parsers.contains(p))
+    private void checkHeaders(List<CryptoPriceDtoBuilder> parsers) {
+        var missedParsers = cryptoPriceDtoBuilders.stream().filter(p -> !parsers.contains(p))
                 .collect(Collectors.toList());
         if (!missedParsers.isEmpty()) {
-            var missedHeaders = missedParsers.stream().map(CryptoPriceParser::getColumnName).collect(Collectors.toList());
+            var missedHeaders = missedParsers.stream().map(CryptoPriceDtoBuilder::getColumnName).collect(Collectors.toList());
             throw new CrpSrvException(String.format("Headers are missed: %s", String.join(",", missedHeaders)));
         }
     }
 
-    private CryptoPriceDto parse(List<CryptoPriceParser> parsers, String value, int lineNumber) {
+    private CryptoPriceDto parse(List<CryptoPriceDtoBuilder> parsers, String value, int lineNumber) {
         var values = Arrays.stream(value.split(DELIMETER)).map(v -> v.trim()).collect(Collectors.toList());
         if (values.size() != parsers.size()) {
             throw new CrpSrvException(String.format("Columns count doesn't match the header, line = %d", lineNumber));
@@ -65,7 +65,7 @@ public class CryptoPriceValuesParserImpl implements CryptoPriceValuesParser {
         var builder = CryptoPriceDto.builder();
 
         for (int i = 0; i < values.size(); i++) {
-            parsers.get(i).parse(values.get(i), builder);
+            parsers.get(i).build(values.get(i), builder);
         }
         return builder.build();
     }

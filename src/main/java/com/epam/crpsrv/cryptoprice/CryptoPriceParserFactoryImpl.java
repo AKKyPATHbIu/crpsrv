@@ -1,8 +1,8 @@
 package com.epam.crpsrv.cryptoprice;
 
-import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceParserUnknown.NAME_QP_UNKNOWN;
+import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceDtoBuilderUnknown.NAME_QP_UNKNOWN;
 
-import com.epam.crpsrv.cryptoprice.parser.CryptoPriceParser;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceDtoBuilder;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,17 +13,17 @@ public class CryptoPriceParserFactoryImpl implements CryptoPriceParserFactory {
 
     @Autowired
     @Qualifier(NAME_QP_UNKNOWN)
-    CryptoPriceParser cryptoPriceParserUnknown;
+    CryptoPriceDtoBuilder cryptoPriceDtoBuilderUnknown;
 
     @Autowired
     @Qualifier("cryptoPriceParsers")
-    List<CryptoPriceParser> cryptoPriceParsers;
+    List<CryptoPriceDtoBuilder> cryptoPriceDtoBuilders;
 
     @Override
-    public CryptoPriceParser getInstance(String columnName) {
-        return cryptoPriceParsers.stream()
+    public CryptoPriceDtoBuilder getInstance(String columnName) {
+        return cryptoPriceDtoBuilders.stream()
                 .filter(qp -> qp.isHandlerFor(columnName))
                 .findFirst()
-                .orElse(cryptoPriceParserUnknown);
+                .orElse(cryptoPriceDtoBuilderUnknown);
     }
 }

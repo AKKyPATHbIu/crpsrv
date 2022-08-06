@@ -1,14 +1,14 @@
 package com.epam.crpsrv.cryptoprice.parser;
 
-import com.epam.crpsrv.cryptoprice.CryptoPriceDto.CryptoPriceDtoBuilder;
+import com.epam.crpsrv.cryptoprice.CryptoPriceDto;
 
-public interface CryptoPriceParser {
+public interface CryptoPriceDtoBuilder {
 
     String COLUMN_TIMESTAMP = "timestamp";
     String COLUMN_SYMBOL = "symbol";
     String COLUMN_PRICE = "price";
 
-    CryptoPriceDtoBuilder parse(String value, CryptoPriceDtoBuilder builder);
+    CryptoPriceDto.CryptoPriceDtoBuilder build(String value, CryptoPriceDto.CryptoPriceDtoBuilder builder);
 
     String getColumnName();
 

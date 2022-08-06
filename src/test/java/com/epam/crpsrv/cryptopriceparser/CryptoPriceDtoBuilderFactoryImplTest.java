@@ -1,16 +1,16 @@
 package com.epam.crpsrv.cryptopriceparser;
 
-import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceParser.COLUMN_PRICE;
-import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceParser.COLUMN_SYMBOL;
-import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceParser.COLUMN_TIMESTAMP;
-import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceParserUnknown.NAME_QP_UNKNOWN;
+import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceDtoBuilder.COLUMN_PRICE;
+import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceDtoBuilder.COLUMN_SYMBOL;
+import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceDtoBuilder.COLUMN_TIMESTAMP;
+import static com.epam.crpsrv.cryptoprice.parser.CryptoPriceDtoBuilderUnknown.NAME_QP_UNKNOWN;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.epam.crpsrv.cryptoprice.CryptoPriceParserConfig;
 import com.epam.crpsrv.cryptoprice.CryptoPriceParserFactory;
 import com.epam.crpsrv.cryptoprice.CryptoPriceParserFactoryImpl;
-import com.epam.crpsrv.cryptoprice.parser.CryptoPriceParser;
-import com.epam.crpsrv.cryptoprice.parser.CryptoPriceParserUnknown;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceDtoBuilder;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceDtoBuilderUnknown;
 import com.epam.crpsrv.cryptoprice.parser.CryptoPriceValuesParserImpl;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -21,16 +21,16 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest
-@ContextConfiguration(classes = {CryptoPriceParserFactoryImpl.class, CryptoPriceValuesParserImpl.class, CryptoPriceParserUnknown.class})
+@ContextConfiguration(classes = {CryptoPriceParserFactoryImpl.class, CryptoPriceValuesParserImpl.class, CryptoPriceDtoBuilderUnknown.class})
 @Import(value = {CryptoPriceParserConfig.class})
-class CryptoPriceParserFactoryImplTest {
+class CryptoPriceDtoBuilderFactoryImplTest {
 
     @Autowired
     CryptoPriceParserFactory cryptoPriceParserFactory;
 
     @Autowired
     @Qualifier(NAME_QP_UNKNOWN)
-    CryptoPriceParser cryptoPriceParserUnknown;
+    CryptoPriceDtoBuilder cryptoPriceDtoBuilderUnknown;
 
     @Nested
     class GetInstance {
@@ -53,7 +53,7 @@ class CryptoPriceParserFactoryImplTest {
         @Test
         void unknown() {
             var actualParser = cryptoPriceParserFactory.getInstance("zzz");
-            assertThat(actualParser).isEqualTo(cryptoPriceParserUnknown);
+            assertThat(actualParser).isEqualTo(cryptoPriceDtoBuilderUnknown);
         }
 
         private void check(String columnName) {

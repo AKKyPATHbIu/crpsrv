@@ -1,8 +1,8 @@
 package com.epam.crpsrv.cryptoprice;
 
-import com.epam.crpsrv.cryptoprice.parser.CryptoPriceParser;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceDtoBuilder;
 
 public interface CryptoPriceParserFactory {
 
-    CryptoPriceParser getInstance(String columnName);
+    CryptoPriceDtoBuilder getInstance(String columnName);
 }

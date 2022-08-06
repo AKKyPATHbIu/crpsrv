@@ -2,7 +2,7 @@ package com.epam.crpsrv.cryptopriceparser;
 
 import com.epam.crpsrv.cryptoprice.CryptoPriceParserConfig;
 import com.epam.crpsrv.cryptoprice.CryptoPriceParserFactoryImpl;
-import com.epam.crpsrv.cryptoprice.parser.CryptoPriceParserUnknown;
+import com.epam.crpsrv.cryptoprice.parser.CryptoPriceDtoBuilderUnknown;
 import com.epam.crpsrv.cryptoprice.parser.CryptoPriceValuesParser;
 import com.epam.crpsrv.cryptoprice.parser.CryptoPriceValuesParserImpl;
 import java.nio.charset.StandardCharsets;
@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 
 @SpringBootTest
-@ContextConfiguration(classes = {CryptoPriceParserFactoryImpl.class, CryptoPriceValuesParserImpl.class, CryptoPriceParserUnknown.class})
+@ContextConfiguration(classes = {CryptoPriceParserFactoryImpl.class, CryptoPriceValuesParserImpl.class, CryptoPriceDtoBuilderUnknown.class})
 @Import(value = {CryptoPriceParserConfig.class})
 class CryptoPriceValuesParserImplTest {
 
