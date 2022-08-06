@@ -6,6 +6,7 @@ import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
+@Profile("compose")
 public class PriceValuesLoader implements ApplicationListener<ContextRefreshedEvent> {
 
     private static final String PRICES_LOCATION_PATTERN = "classpath:/prices/*.csv";

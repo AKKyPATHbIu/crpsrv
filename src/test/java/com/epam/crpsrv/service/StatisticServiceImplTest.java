@@ -3,7 +3,7 @@ package com.epam.crpsrv.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 
-import com.epam.crpsrv.dto.NormalizedPriceDto;
+import com.epam.crpsrv.dto.NormalizedRangeDto;
 import com.epam.crpsrv.dto.OldestNewestMinMaxDto;
 import com.epam.crpsrv.repository.QuoteRepository;
 import java.math.BigDecimal;
@@ -93,19 +93,36 @@ class StatisticServiceImplTest {
     @Test
     void calcNormalizedPrice() {
         var expectedResult = List.of(
-                NormalizedPriceDto.builder()
+                NormalizedRangeDto.builder()
                         .symbol("XRP")
-                        .normalizedPrice(new BigDecimal("0.21"))
+                        .normalizedRange(new BigDecimal("0.21"))
                         .build(),
-                NormalizedPriceDto.builder()
+                NormalizedRangeDto.builder()
                         .symbol("BTC")
-                        .normalizedPrice(new BigDecimal("0.55"))
+                        .normalizedRange(new BigDecimal("0.55"))
                         .build()
         );
 
-        doReturn(expectedResult).when(quoteRepository).calcNormalizedPrice();
+        doReturn(expectedResult).when(quoteRepository).calcNormalizedRange();
 
-        var actualResult = statisticService.calcNormalizedPrice();
+        var actualResult = statisticService.calcNormalizedRange();
+
+        assertThat(actualResult).isEqualTo(expectedResult);
+    }
+
+    @Test
+    void calcNormalizedPriceByCrypto() {
+        var symbol = "XRP";
+        var expectedResult = NormalizedRangeDto.builder()
+                .symbol(symbol)
+                .normalizedRange(new BigDecimal("0.21"))
+                .build();
+
+        var date = LocalDate.of(2022, 1, 1);
+
+        doReturn(expectedResult).when(quoteRepository).calcNormalizedRange(date, symbol);
+
+        var actualResult = statisticService.calcNormalizedRange(date, symbol);
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }

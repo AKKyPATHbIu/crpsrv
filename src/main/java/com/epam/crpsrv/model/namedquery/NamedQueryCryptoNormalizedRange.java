@@ -1,8 +1,8 @@
 package com.epam.crpsrv.model.namedquery;
 
-import static com.epam.crpsrv.model.namedquery.NamedQueryCryptoNormalizedPrice.NQ_NORMALIZED_PRICE_ALL;
+import static com.epam.crpsrv.model.namedquery.NamedQueryCryptoNormalizedRange.NQ_NORMALIZED_RANGE_ALL;
 
-import com.epam.crpsrv.dto.NormalizedPriceDto;
+import com.epam.crpsrv.dto.NormalizedRangeDto;
 import java.math.BigDecimal;
 import java.util.UUID;
 import javax.persistence.ColumnResult;
@@ -26,27 +26,27 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @NamedNativeQuery(
-        name = NQ_NORMALIZED_PRICE_ALL,
+        name = NQ_NORMALIZED_RANGE_ALL,
         query = "select\n"
                 + "  c.symbol,\n"
-                + "  (select trunc((max(price) - min(price)) / min(price),4) from quote q where q.crypto_id = c.id) as norm_price\n"
+                + "  (select trunc((max(price) - min(price)) / min(price), 4) from quote q where q.crypto_id = c.id) as norm_range\n"
                 + "from crypto c\n"
-                + "order by norm_price desc",
-        resultSetMapping = NQ_NORMALIZED_PRICE_ALL
+                + "order by norm_range desc",
+        resultSetMapping = NQ_NORMALIZED_RANGE_ALL
 )
 @SqlResultSetMapping(
-        name = NQ_NORMALIZED_PRICE_ALL,
+        name = NQ_NORMALIZED_RANGE_ALL,
         classes = @ConstructorResult(
-                targetClass = NormalizedPriceDto.class,
+                targetClass = NormalizedRangeDto.class,
                 columns = {
                         @ColumnResult(name = "symbol", type = String.class),
-                        @ColumnResult(name = "norm_price", type = BigDecimal.class)
+                        @ColumnResult(name = "norm_range", type = BigDecimal.class)
                 }
         )
 )
-public class NamedQueryCryptoNormalizedPrice {
+public class NamedQueryCryptoNormalizedRange {
 
-    public static final String NQ_NORMALIZED_PRICE_ALL = "normalized_price_all";
+    public static final String NQ_NORMALIZED_RANGE_ALL = "normalized_range_all";
 
     @Id
     UUID id;

@@ -1,12 +1,14 @@
 package com.epam.crpsrv.web;
 
-import com.epam.crpsrv.dto.NormalizedPriceDto;
+import com.epam.crpsrv.dto.NormalizedRangeDto;
 import com.epam.crpsrv.dto.OldestNewestMinMaxDto;
 import com.epam.crpsrv.service.StatisticService;
+import java.time.LocalDate;
 import java.util.List;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,8 +41,16 @@ public class StatisticsController {
         return statisticService.calcOldestNewestMinMax(month, year, symbol);
     }
 
-    @GetMapping(value = "normalized-price", produces = {"application/json"})
-    public List<NormalizedPriceDto> calcNormalizedPrice() {
-        return statisticService.calcNormalizedPrice();
+    @GetMapping(value = "normalized-range", produces = {"application/json"})
+    public List<NormalizedRangeDto> calcNormalizedRange() {
+        return statisticService.calcNormalizedRange();
+    }
+
+    @GetMapping(value = "normalized-range/{symbol}", produces = {"application/json"})
+    public NormalizedRangeDto calcNormalizedRange(
+            @PathVariable String symbol,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+
+        return statisticService.calcNormalizedRange(date, symbol);
     }
 }

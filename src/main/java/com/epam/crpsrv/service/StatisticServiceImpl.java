@@ -1,6 +1,6 @@
 package com.epam.crpsrv.service;
 
-import com.epam.crpsrv.dto.NormalizedPriceDto;
+import com.epam.crpsrv.dto.NormalizedRangeDto;
 import com.epam.crpsrv.dto.OldestNewestMinMaxDto;
 import com.epam.crpsrv.exception.CrpSrvException;
 import com.epam.crpsrv.repository.QuoteRepository;
@@ -41,7 +41,12 @@ public class StatisticServiceImpl implements StatisticService {
     }
 
     @Override
-    public List<NormalizedPriceDto> calcNormalizedPrice() {
-        return quoteRepository.calcNormalizedPrice();
+    public List<NormalizedRangeDto> calcNormalizedRange() {
+        return quoteRepository.calcNormalizedRange();
+    }
+
+    @Override
+    public NormalizedRangeDto calcNormalizedRange(LocalDate date, String symbol) {
+        return quoteRepository.calcNormalizedRange(date, symbol);
     }
 }

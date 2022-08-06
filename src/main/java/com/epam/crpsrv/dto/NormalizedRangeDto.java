@@ -16,8 +16,8 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class NormalizedPriceDto {
+public class NormalizedRangeDto {
 
     private String symbol;
-    private BigDecimal normalizedPrice;
+    private BigDecimal normalizedRange;
 }

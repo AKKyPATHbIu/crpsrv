@@ -3,11 +3,12 @@ package com.epam.crpsrv.web;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 
-import com.epam.crpsrv.dto.NormalizedPriceDto;
+import com.epam.crpsrv.dto.NormalizedRangeDto;
 import com.epam.crpsrv.dto.OldestNewestMinMaxDto;
 import com.epam.crpsrv.service.StatisticService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -18,14 +19,14 @@ class StatisticsControllerTest extends BaseControllerTest {
 
     private final static String URL_BASE = "/statistics";
     private final static String URL_OLDEST_NEWEST_MIN_MAX = URL_BASE + "/oldest-newest-min-max";
-    private final static String URL_NORMALIZED_PRICE = URL_BASE + "/normalized-price";
+    private final static String URL_NORMALIZED_RANGE = URL_BASE + "/normalized-range";
 
     private final TypeReference TYPE_REFERENCE_OLDEST_NEWEST_MIN_MAX_DTOS =
             new TypeReference<List<OldestNewestMinMaxDto>>() {
             };
 
-    private final TypeReference TYPE_REFERENCE_NORMALIZED_PRICE_DTOS =
-            new TypeReference<List<NormalizedPriceDto>>() {
+    private final TypeReference TYPE_REFERENCE_NORMALIZED_RANGE_DTOS =
+            new TypeReference<List<NormalizedRangeDto>>() {
             };
 
     @MockBean
@@ -75,22 +76,42 @@ class StatisticsControllerTest extends BaseControllerTest {
     }
 
     @Test
-    void calcNormalizedPrice() throws Exception {
+    void calcNormalizedRange() throws Exception {
         var expectedResult = List.of(
-                NormalizedPriceDto.builder()
+                NormalizedRangeDto.builder()
                         .symbol("BTC")
-                        .normalizedPrice(BigDecimal.TEN)
+                        .normalizedRange(BigDecimal.TEN)
                         .build(),
-                NormalizedPriceDto.builder()
+                NormalizedRangeDto.builder()
                         .symbol("ETH")
-                        .normalizedPrice(BigDecimal.ONE)
+                        .normalizedRange(BigDecimal.ONE)
                         .build()
         );
 
-        doReturn(expectedResult).when(statisticService).calcNormalizedPrice();
+        doReturn(expectedResult).when(statisticService).calcNormalizedRange();
 
-        var actualResult = (List<NormalizedPriceDto>) executeGet(
-                URL_NORMALIZED_PRICE, TYPE_REFERENCE_NORMALIZED_PRICE_DTOS);
+        var actualResult = (List<NormalizedRangeDto>) executeGet(
+                URL_NORMALIZED_RANGE, TYPE_REFERENCE_NORMALIZED_RANGE_DTOS);
+
+        assertThat(actualResult).isEqualTo(expectedResult);
+    }
+
+    @Test
+    void calcNormalizedRangeByCrypto() throws Exception {
+        var symbol = "BTC";
+
+        var expectedResult = NormalizedRangeDto.builder()
+                .symbol(symbol)
+                .normalizedRange(new BigDecimal("0.007"))
+                .build();
+
+        var date = LocalDate.of(2022, 1, 1);
+
+        doReturn(expectedResult).when(statisticService).calcNormalizedRange(date, symbol);
+
+        var url = URL_NORMALIZED_RANGE + "/" + symbol + "?date=2022-01-01";
+
+        var actualResult = executeGet(url, NormalizedRangeDto.class);
 
         assertThat(actualResult).isEqualTo(expectedResult);
     }
