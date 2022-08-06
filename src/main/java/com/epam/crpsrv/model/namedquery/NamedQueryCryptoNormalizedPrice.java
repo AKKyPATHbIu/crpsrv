@@ -1,7 +1,8 @@
-package com.epam.crpsrv.model;
+package com.epam.crpsrv.model.namedquery;
 
-import static com.epam.crpsrv.model.NamedQueryCryptoNormalizedPrice.NQ_NORMALIZED_PRICE_ALL;
+import static com.epam.crpsrv.model.namedquery.NamedQueryCryptoNormalizedPrice.NQ_NORMALIZED_PRICE_ALL;
 
+import com.epam.crpsrv.dto.NormalizedPriceDto;
 import java.math.BigDecimal;
 import java.util.UUID;
 import javax.persistence.ColumnResult;

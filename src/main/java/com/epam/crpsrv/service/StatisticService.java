@@ -1,7 +1,7 @@
 package com.epam.crpsrv.service;
 
-import com.epam.crpsrv.model.NormalizedPriceDto;
-import com.epam.crpsrv.model.OldestNewestMinMaxDto;
+import com.epam.crpsrv.dto.NormalizedPriceDto;
+import com.epam.crpsrv.dto.OldestNewestMinMaxDto;
 import java.time.LocalDate;
 import java.util.List;
 

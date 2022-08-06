@@ -1,7 +1,8 @@
-package com.epam.crpsrv.model;
+package com.epam.crpsrv.model.namedquery;
 
-import static com.epam.crpsrv.model.NamedQueryOldestNewestMinMax.NQ_NORMALIZED_OLDEST_NEWEST_MIN_MAX;
+import static com.epam.crpsrv.model.namedquery.NamedQueryOldestNewestMinMax.NQ_NORMALIZED_OLDEST_NEWEST_MIN_MAX;
 
+import com.epam.crpsrv.dto.OldestNewestMinMaxDto;
 import java.math.BigDecimal;
 import java.util.UUID;
 import javax.persistence.Column;

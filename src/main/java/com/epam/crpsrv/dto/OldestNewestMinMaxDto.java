@@ -1,4 +1,4 @@
-package com.epam.crpsrv.model;
+package com.epam.crpsrv.dto;
 
 import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
@@ -16,8 +16,11 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
-public class NormalizedPriceDto {
+public class OldestNewestMinMaxDto {
 
-    private String symbol;
-    private BigDecimal normalizedPrice;
+    String symbol;
+    BigDecimal minPrice;
+    BigDecimal maxPrice;
+    BigDecimal oldestPrice;
+    BigDecimal newestPrice;
 }

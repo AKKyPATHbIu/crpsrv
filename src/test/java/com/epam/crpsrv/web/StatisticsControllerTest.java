@@ -3,8 +3,8 @@ package com.epam.crpsrv.web;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doReturn;
 
-import com.epam.crpsrv.model.NormalizedPriceDto;
-import com.epam.crpsrv.model.OldestNewestMinMaxDto;
+import com.epam.crpsrv.dto.NormalizedPriceDto;
+import com.epam.crpsrv.dto.OldestNewestMinMaxDto;
 import com.epam.crpsrv.service.StatisticService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import java.math.BigDecimal;

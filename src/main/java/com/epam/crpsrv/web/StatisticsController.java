@@ -1,7 +1,7 @@
 package com.epam.crpsrv.web;
 
-import com.epam.crpsrv.model.NormalizedPriceDto;
-import com.epam.crpsrv.model.OldestNewestMinMaxDto;
+import com.epam.crpsrv.dto.NormalizedPriceDto;
+import com.epam.crpsrv.dto.OldestNewestMinMaxDto;
 import com.epam.crpsrv.service.StatisticService;
 import java.util.List;
 import javax.validation.constraints.Max;

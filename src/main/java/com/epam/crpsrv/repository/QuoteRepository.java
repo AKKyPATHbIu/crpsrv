@@ -1,11 +1,11 @@
 package com.epam.crpsrv.repository;
 
-import static com.epam.crpsrv.model.NamedQueryCryptoNormalizedPrice.NQ_NORMALIZED_PRICE_ALL;
-import static com.epam.crpsrv.model.NamedQueryOldestNewestMinMax.NQ_NORMALIZED_OLDEST_NEWEST_MIN_MAX;
+import static com.epam.crpsrv.model.namedquery.NamedQueryCryptoNormalizedPrice.NQ_NORMALIZED_PRICE_ALL;
+import static com.epam.crpsrv.model.namedquery.NamedQueryOldestNewestMinMax.NQ_NORMALIZED_OLDEST_NEWEST_MIN_MAX;
 
 import com.cosium.spring.data.jpa.entity.graph.repository.EntityGraphJpaRepository;
-import com.epam.crpsrv.model.NormalizedPriceDto;
-import com.epam.crpsrv.model.OldestNewestMinMaxDto;
+import com.epam.crpsrv.dto.NormalizedPriceDto;
+import com.epam.crpsrv.dto.OldestNewestMinMaxDto;
 import com.epam.crpsrv.model.Quote;
 import java.time.LocalDate;
 import java.util.List;
