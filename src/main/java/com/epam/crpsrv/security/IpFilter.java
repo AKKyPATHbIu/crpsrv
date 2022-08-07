@@ -6,15 +6,18 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
+@Profile({"compose", "local"})
 public class IpFilter extends OncePerRequestFilter {
 
     private final List ALLOWED_IP_ADDRESSES = List.of(
             "192.168.80.1",
-            "0:0:0:0:0:0:0:1"
+            "0:0:0:0:0:0:0:1",
+            "localhost"
     );
 
     @Override
