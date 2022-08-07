@@ -8,7 +8,7 @@ import com.epam.crpsrv.dto.OldestNewestMinMaxDto;
 import com.epam.crpsrv.model.view.NormalizedRangeView;
 import com.epam.crpsrv.model.view.OldestNewestMinMaxView;
 import com.epam.crpsrv.repository.CryptoPriceRepository;
-import com.epam.crpsrv.util.ViewDtoMapperUtil;
+import com.epam.crpsrv.util.ViewToDtoMapperUtil;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
@@ -156,7 +156,7 @@ class StatisticServiceImplTest {
         var viewXRP = createNormRangeViewInstance(symbolXRP, normRangeXRP);
 
         var expectedViews = List.of(viewXRP, viewBTC);
-        var expectedResult = ViewDtoMapperUtil.normalizedRangeViewToDtoList(expectedViews);
+        var expectedResult = ViewToDtoMapperUtil.normalizedRangeViewToDtoList(expectedViews);
 
         doReturn(expectedViews).when(cryptoPriceRepository).calcNormalizedRange();
 

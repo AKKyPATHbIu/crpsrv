@@ -7,7 +7,7 @@ import com.epam.crpsrv.model.view.OldestNewestMinMaxView;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ViewDtoMapperUtil {
+public class ViewToDtoMapperUtil {
 
     public static NormalizedRangeDto normalizedRangeViewToDto(NormalizedRangeView view) {
         return NormalizedRangeDto.builder()
