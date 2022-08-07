@@ -25,7 +25,7 @@ public class PriceController {
     @Autowired
     private CryptoPriceService cryptoPriceService;
 
-    @Operation(summary = "Importing price values from chosen file")
+    @Operation(summary = "Imports price values from chosen file")
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {"application/json"})
     void upload(@RequestPart(value = "files") @Size(max = 5) List<MultipartFile> files) {
