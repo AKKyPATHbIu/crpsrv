@@ -2,6 +2,7 @@ package com.epam.crpsrv.web;
 
 import com.epam.crpsrv.exception.CrpSrvException;
 import com.epam.crpsrv.service.CryptoPriceService;
+import io.swagger.v3.oas.annotations.Operation;
 import java.io.IOException;
 import java.util.List;
 import javax.validation.constraints.Size;
@@ -24,6 +25,7 @@ public class PriceController {
     @Autowired
     private CryptoPriceService cryptoPriceService;
 
+    @Operation(summary = "Importing price values from chosen file")
     @PostMapping(consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {"application/json"})
     void upload(@RequestPart(value = "files") @Size(max = 5) List<MultipartFile> files) {

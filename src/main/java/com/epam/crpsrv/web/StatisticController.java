@@ -3,6 +3,7 @@ package com.epam.crpsrv.web;
 import com.epam.crpsrv.dto.NormalizedRangeDto;
 import com.epam.crpsrv.dto.OldestNewestMinMaxDto;
 import com.epam.crpsrv.service.StatisticService;
+import io.swagger.v3.oas.annotations.Operation;
 import java.time.LocalDate;
 import java.util.List;
 import javax.validation.constraints.Max;
@@ -25,6 +26,7 @@ public class StatisticController {
     StatisticService statisticService;
 
     @GetMapping(value = "oldest-newest-min-max", produces = {"application/json"})
+    @Operation(summary = "Calculates oldest/newest/min/max for each crypto for the whole month")
     public List<OldestNewestMinMaxDto> calcOldestNewestMinMax(
             @RequestParam @Min(1) @Max(12) int month,
             @RequestParam @Min(2022) int year) {
@@ -33,6 +35,7 @@ public class StatisticController {
     }
 
     @GetMapping(value = "oldest-newest-min-max/{symbol}", produces = {"application/json"})
+    @Operation(summary = "Calculates oldest/newest/min/max values for a requested crypto")
     public OldestNewestMinMaxDto calcOldestNewestMinMaxbySymbol(
             @RequestParam @Min(1) @Max(12) int month,
             @RequestParam @Min(2022) int year,
@@ -42,11 +45,14 @@ public class StatisticController {
     }
 
     @GetMapping(value = "normalized-range", produces = {"application/json"})
+    @Operation(summary = "Calculates a descending sorted list of all the cryptos"
+            + " comparing the normalized range (i.e. (max-min)/min)")
     public List<NormalizedRangeDto> calcNormalizedRange() {
         return statisticService.calcNormalizedRange();
     }
 
     @GetMapping(value = "normalized-range/{symbol}", produces = {"application/json"})
+    @Operation(summary = "Calculates crypto with the highest normalized range for a specific day")
     public NormalizedRangeDto calcNormalizedRange(
             @PathVariable String symbol,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
