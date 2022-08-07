@@ -1,6 +1,7 @@
 package com.epam.crpsrv.service;
 
 import com.epam.crpsrv.cryptoprice.parser.CryptoPriceValuesParser;
+import com.epam.crpsrv.exception.CrpSrvException;
 import com.epam.crpsrv.model.CryptoPrice;
 import com.epam.crpsrv.repository.CryptoPriceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
 public class CryptoPriceServiceImpl implements CryptoPriceService {
 
     @Autowired
@@ -21,6 +21,7 @@ public class CryptoPriceServiceImpl implements CryptoPriceService {
     CryptoService cryptoService;
 
     @Override
+    @Transactional(noRollbackFor = CrpSrvException.class)
     public void saveFromByteContent(byte[] content) {
         var cryptoPrices = cryptoPriceValuesParser.parse(content);
         cryptoPrices.forEach(q -> {

@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class CryptoPriceValuesParserImpl implements CryptoPriceValuesParser {
 
@@ -43,7 +45,11 @@ public class CryptoPriceValuesParserImpl implements CryptoPriceValuesParser {
 
         var result = new ArrayList<CryptoPriceDto>();
         for (int i = 1; i < lines.size(); i++) {
-            result.add(parse(parsers, lines.get(i), i));
+            try {
+                result.add(parse(parsers, lines.get(i), i));
+            } catch (CrpSrvException ex) {
+                log.error(ex.getMessage(), ex);
+            }
         }
         return result;
     }
@@ -52,7 +58,8 @@ public class CryptoPriceValuesParserImpl implements CryptoPriceValuesParser {
         var missedParsers = cryptoPriceDtoBuilders.stream().filter(p -> !parsers.contains(p))
                 .collect(Collectors.toList());
         if (!missedParsers.isEmpty()) {
-            var missedHeaders = missedParsers.stream().map(CryptoPriceDtoBuilder::getColumnName).collect(Collectors.toList());
+            var missedHeaders = missedParsers.stream().map(CryptoPriceDtoBuilder::getColumnName)
+                    .collect(Collectors.toList());
             throw new CrpSrvException(String.format("Headers are missed: %s", String.join(",", missedHeaders)));
         }
     }
@@ -65,7 +72,16 @@ public class CryptoPriceValuesParserImpl implements CryptoPriceValuesParser {
         var builder = CryptoPriceDto.builder();
 
         for (int i = 0; i < values.size(); i++) {
-            parsers.get(i).build(values.get(i), builder);
+            var parser = parsers.get(i);
+            var curValue = values.get(i);
+            try {
+                parser.build(curValue, builder);
+            } catch (Exception ex) {
+                throw new CrpSrvException(
+                        String.format("Failed to parse value = %s, column = %s, line number = %d",
+                                curValue, parser.getColumnName(), lineNumber)
+                );
+            }
         }
         return builder.build();
     }
