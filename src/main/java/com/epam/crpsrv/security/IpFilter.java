@@ -1,7 +1,7 @@
 package com.epam.crpsrv.security;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.regex.Pattern;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -14,11 +14,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @Profile({"compose", "local"})
 public class IpFilter extends OncePerRequestFilter {
 
-    private final List ALLOWED_IP_ADDRESSES = List.of(
-            "192.168.80.1",
-            "0:0:0:0:0:0:0:1",
-            "localhost"
-    );
+    private final static String REG_EXP_ALLOWED_IP_ADDRESSES = "192\\.168\\.*|0\\:0\\:0\\:0\\:0\\:0\\:0\\:1";
+    private final static Pattern PATTERN_ALLOWED_IP_ADDRESSES = Pattern.compile(REG_EXP_ALLOWED_IP_ADDRESSES);
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -29,6 +26,6 @@ public class IpFilter extends OncePerRequestFilter {
     }
 
     private boolean accept(String ipAddress) {
-        return ALLOWED_IP_ADDRESSES.contains(ipAddress);
+        return PATTERN_ALLOWED_IP_ADDRESSES.matcher(ipAddress).find();
     }
 }
