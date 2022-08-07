@@ -7,7 +7,10 @@
 
 package com.epam.crpsrv.config;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import org.springdoc.core.GroupedOpenApi;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,5 +33,20 @@ class SwaggerConfig {
                 .packagesToScan("com.epam.crpsrv.web")
                 .pathsToMatch("/price/**")
                 .build();
+    }
+
+    @Bean
+    public OpenAPI customOpenApi(
+            @Value("${application.title}") String appTitle,
+            @Value("${application.description}") String appDescription,
+            @Value("${application.version}") String appVersion) {
+
+        return new OpenAPI()
+                .info(
+                        new Info()
+                                .title(appTitle + " API")
+                                .description(appDescription)
+                                .version(appVersion)
+                );
     }
 }

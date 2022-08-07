@@ -8,3 +8,8 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yml
   jpa:
     open-in-view: false
+
+application:
+  title: Crypto Investment
+  description: Crypto Investment Recommendation Service
+  version: 1.0
