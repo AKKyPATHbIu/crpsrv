@@ -23,10 +23,10 @@ public interface CryptoPriceRepository extends EntityGraphJpaRepository<CryptoPr
             + "  c.symbol,\n"
             + "  coalesce(min(q.price), 0.0) as min_price,\n"
             + "  coalesce(max(q.price), 0.0) as max_price,\n"
-            + "  coalesce((select price from crypto_price q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" between :dateFrom and :dateTo order by q2.\"timestamp\" limit 1), 0.0) as oldest_price,\n"
-            + "  coalesce((select price from crypto_price q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" between :dateFrom and :dateTo order by q2.\"timestamp\" desc limit 1), 0.0) as newest_price\n"
+            + "  coalesce((select price from crypto_price q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" >= :dateFrom and q2.\"timestamp\" < :dateTo order by q2.\"timestamp\" limit 1), 0.0) as oldest_price,\n"
+            + "  coalesce((select price from crypto_price q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" >= :dateFrom and q2.\"timestamp\" < :dateTo order by q2.\"timestamp\" desc limit 1), 0.0) as newest_price\n"
             + "from crypto c\n"
-            + "left join crypto_price q on q.crypto_id = c.id and \"timestamp\" between :dateFrom and :dateTo\n"
+            + "left join crypto_price q on q.crypto_id = c.id and q.\"timestamp\" >= :dateFrom and q.\"timestamp\" < :dateTo\n"
             + "group by crypto_id, c.symbol", nativeQuery = true)
     List<OldestNewestMinMaxView> calcOldestNewestMinMax(
             @Param("dateFrom") LocalDate dateFrom,
@@ -37,10 +37,10 @@ public interface CryptoPriceRepository extends EntityGraphJpaRepository<CryptoPr
             + "  c.symbol,\n"
             + "  coalesce(min(q.price), 0.0) as min_price,\n"
             + "  coalesce(max(q.price), 0.0) as max_price,\n"
-            + "  coalesce((select price from crypto_price q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" between :dateFrom and :dateTo order by q2.\"timestamp\" limit 1), 0.0) as oldest_price,\n"
-            + "  coalesce((select price from crypto_price q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" between :dateFrom and :dateTo order by q2.\"timestamp\" desc limit 1), 0.0) as newest_price\n"
+            + "  coalesce((select price from crypto_price q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" >= :dateFrom and q2.\"timestamp\" < :dateTo order by q2.\"timestamp\" limit 1), 0.0) as oldest_price,\n"
+            + "  coalesce((select price from crypto_price q2 where q2.crypto_id = q.crypto_id and q2.\"timestamp\" >= :dateFrom and q2.\"timestamp\" < :dateTo order by q2.\"timestamp\" desc limit 1), 0.0) as newest_price\n"
             + "from crypto c\n"
-            + "left join crypto_price q on q.crypto_id = c.id and \"timestamp\" between :dateFrom and :dateTo\n"
+            + "left join crypto_price q on q.crypto_id = c.id and q.\"timestamp\" >= :dateFrom and q.\"timestamp\" < :dateTo\n"
             + "where c.symbol ilike :symbol\n"
             + "group by crypto_id, c.symbol", nativeQuery = true)
     OldestNewestMinMaxView calcOldestNewestMinMax(
