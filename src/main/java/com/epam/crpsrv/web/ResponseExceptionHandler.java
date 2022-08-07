@@ -1,5 +1,6 @@
 package com.epam.crpsrv.web;
 
+import com.epam.crpsrv.dto.ErrorMessageDto;
 import com.epam.crpsrv.exception.CrpSrvException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ResponseExceptionHandler {
 
     @ExceptionHandler({CrpSrvException.class})
-    public String handleCrpSrvException(CrpSrvException e) {
-        return e.getMessage();
+    public ErrorMessageDto handleCrpSrvException(CrpSrvException e) {
+        return new ErrorMessageDto(e.getMessage());
     }
 }
