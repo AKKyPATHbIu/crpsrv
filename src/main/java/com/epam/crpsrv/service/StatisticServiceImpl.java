@@ -4,6 +4,7 @@ import com.epam.crpsrv.dto.NormalizedRangeDto;
 import com.epam.crpsrv.dto.OldestNewestMinMaxDto;
 import com.epam.crpsrv.exception.CrpSrvException;
 import com.epam.crpsrv.repository.CryptoPriceRepository;
+import com.epam.crpsrv.util.ViewDtoMapperUtil;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,9 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Override
     public List<OldestNewestMinMaxDto> calcOldestNewestMinMax(LocalDate dateFrom, LocalDate dateTo) {
-        return cryptoPriceRepository.calcOldestNewestMinMax(dateFrom, dateTo);
+        return ViewDtoMapperUtil.oldestNewestMinMaxViewToDtoList(
+                cryptoPriceRepository.calcOldestNewestMinMax(dateFrom, dateTo)
+        );
     }
 
     @Override
@@ -25,7 +28,9 @@ public class StatisticServiceImpl implements StatisticService {
         var dateFrom = LocalDate.of(year, month, 1);
         var dateTo = dateFrom.plusMonths(1);
 
-        return cryptoPriceRepository.calcOldestNewestMinMax(dateFrom, dateTo);
+        return ViewDtoMapperUtil.oldestNewestMinMaxViewToDtoList(
+                cryptoPriceRepository.calcOldestNewestMinMax(dateFrom, dateTo)
+        );
     }
 
     @Override
@@ -37,16 +42,20 @@ public class StatisticServiceImpl implements StatisticService {
         if (result == null) {
             throw new CrpSrvException(String.format("Crypto with symbol %s not exists", symbol));
         }
-        return result;
+        return ViewDtoMapperUtil.oldestNewestMinMaxViewToDto(result);
     }
 
     @Override
     public List<NormalizedRangeDto> calcNormalizedRange() {
-        return cryptoPriceRepository.calcNormalizedRange();
+        return ViewDtoMapperUtil.normalizedRangeViewToDtoList(
+                cryptoPriceRepository.calcNormalizedRange()
+        );
     }
 
     @Override
     public NormalizedRangeDto calcNormalizedRange(LocalDate date, String symbol) {
-        return cryptoPriceRepository.calcNormalizedRange(date, symbol);
+        return ViewDtoMapperUtil.normalizedRangeViewToDto(
+                cryptoPriceRepository.calcNormalizedRange(date, symbol)
+        );
     }
 }
