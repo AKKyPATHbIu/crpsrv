@@ -74,7 +74,7 @@ class CryptoServiceImplTest {
 
             var savedCrypto = Crypto.builder().symbol(EXPECTED_SYMBOL).build();
 
-            doReturn(Optional.empty()).when(cryptoRepository).findBySymbol(EXPECTED_SYMBOL);
+            doReturn(Optional.empty()).when(cryptoRepository).findBySymbolIgnoreCase(EXPECTED_SYMBOL);
             doReturn(expectedCrypto).when(cryptoRepository).save(savedCrypto);
 
             var actualCrypto = cryptoService.saveIfNotExists(EXPECTED_SYMBOL);
@@ -83,7 +83,7 @@ class CryptoServiceImplTest {
 
         @Test
         void whenAlreadyExists() {
-            doReturn(Optional.of(EXPECTED_CRYPTO)).when(cryptoRepository).findBySymbol(EXPECTED_SYMBOL);
+            doReturn(Optional.of(EXPECTED_CRYPTO)).when(cryptoRepository).findBySymbolIgnoreCase(EXPECTED_SYMBOL);
 
             var actualCrypto = cryptoService.saveIfNotExists(EXPECTED_SYMBOL);
 

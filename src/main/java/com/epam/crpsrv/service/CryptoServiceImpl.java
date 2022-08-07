@@ -25,7 +25,7 @@ public class CryptoServiceImpl implements CryptoService {
     @Override
     public Crypto saveIfNotExists(String symbol) {
         return cryptoRepository
-                .findBySymbol(symbol)
+                .findBySymbolIgnoreCase(symbol)
                 .orElseGet(() -> cryptoRepository.save(Crypto.builder()
                         .symbol(symbol)
                         .build())

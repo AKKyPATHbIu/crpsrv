@@ -24,6 +24,9 @@ class StatisticServiceImplTest {
     @Mock
     CryptoPriceRepository cryptoPriceRepository;
 
+    @Mock
+    CheckService checkService;
+
     @InjectMocks
     StatisticServiceImpl statisticService;
 
